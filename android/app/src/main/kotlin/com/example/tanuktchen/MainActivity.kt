@@ -1,4 +1,4 @@
-package com.example.tanuktchen
+package com.example.tanukitchen
 
 import io.flutter.embedding.android.FlutterActivity
 

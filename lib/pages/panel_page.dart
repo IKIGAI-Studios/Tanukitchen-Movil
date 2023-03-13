@@ -6,7 +6,8 @@ class PanelPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Panel de tanukichen')),
+      appBar: AppBar(title: const Text('Panel de tanukichen')
+      ),
     );
   }
 }
