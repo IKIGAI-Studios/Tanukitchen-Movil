@@ -1,2 +1,4 @@
-const CON =
-    "mongodb+srv://root:root@tanucluster.98dt6wk.mongodb.net/myFirstDatabase";
+const CONN = "mongodb://localhost:27017/";
+// Agregar colecciones
+
+const COLLECTION_USERS = 'user';
