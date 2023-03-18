@@ -1,3 +1,5 @@
+import 'package:tanukitchen/widgets/user_card_widget.dart';
+import 'package:tanukitchen/models/user_model.dart';
 import 'package:tanukitchen/db/mongodb.dart';
 import 'package:flutter/material.dart';
 
@@ -12,80 +14,67 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: MongoDB.getUsers(),
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Container(
-            child: const LinearProgressIndicator(
-              backgroundColor: Color.fromRGBO(6, 190, 182, 1.0),
-            ),
-          );
-        } else if (snapshot.hasError) {
-          return Container(
-            child: Column(children: [
-              Image.asset('assets/images/TakumiSeatedBlue.png'),
-              const Text('Lo sentimos, ocurrió un error. Inténtalo más tarde.'),
-            ]),
-          );
-        } else {
-          return Scaffold(
-            appBar: AppBar(
-              elevation: 0.0,
-              backgroundColor: const Color.fromRGBO(39, 47, 63, 1.0),
-            ),
-            body: ListView(
-              padding: const EdgeInsets.all(10.0),
-              children: [
-                _createWelcome(context),
+        future: MongoDB.getUsers(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          // CIRCULITO QUE DA VUELTAS XD
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(
+                color: Color.fromRGBO(6, 190, 182, 1.0),
+                backgroundColor: Color.fromRGBO(39, 47, 63, 1.0),
+              ),
+            );
+
+            // TAKITO MAN
+          } else if (snapshot.hasError) {
+            return Container(
+              child: Column(children: [
+                Image.asset('assets/images/TakumiSeatedBlue.png'),
                 const Text(
-                  'Select your profile',
-                  style: TextStyle(
-                      color: Color.fromRGBO(217, 217, 217, 1.0),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30),
-                  textAlign: TextAlign.center,
-                ),
-                _createProfile(),
-                _createProfile()
-              ],
-            ),
-          );
-        }
-      },
-    );
+                    'Lo sentimos, ocurrió un error. Inténtalo más tarde.'),
+              ]),
+            );
+          } else {
+            // SI TODO SALE BIEN: SÍ SCAFOL
+            return Scaffold(
+              appBar: AppBar(
+                elevation: 0.0,
+                backgroundColor: const Color.fromRGBO(39, 47, 63, 1.0),
+              ),
+              body: Column(
+                children: [
+                  _createWelcome(context),
+                  const Text(
+                    'Select your profile',
+                    style: TextStyle(
+                        color: Color.fromRGBO(217, 217, 217, 1.0),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30),
+                    textAlign: TextAlign.center,
+                  ),
+                  Expanded(
+                    child: ListView.builder(
+                      padding: const EdgeInsets.all(10.0),
+                      itemBuilder: (context, index) {
+                        return Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: UserCard(
+                              user: User.fromMap(snapshot.data[index]),
+                              onTapDelete: () async {
+                                _deleteUser(User.fromMap(snapshot.data[index]));
+                              },
+                            ));
+                      },
+                      itemCount: snapshot.data.length,
+                    ),
+                  )
+                ],
+              ),
+            );
+          }
+        });
   }
 }
-
-/*
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0.0,
-        backgroundColor: const Color.fromRGBO(39, 47, 63, 1.0),
-      ),
-      body: ListView(
-        padding: const EdgeInsets.all(10.0),
-        children: [
-          _createWelcome(context),
-          const Text(
-            'Select your profile',
-            style: TextStyle(
-                color: Color.fromRGBO(217, 217, 217, 1.0),
-                fontWeight: FontWeight.bold,
-                fontSize: 30),
-            textAlign: TextAlign.center,
-          ),
-          _createProfile(),
-          _createProfile()
-        ],
-      ),
-    );
-  }
-  */
 
 // Welcome Banner
 Widget _createWelcome(BuildContext context) {
@@ -107,6 +96,10 @@ Widget _createWelcome(BuildContext context) {
       ],
     ),
   );
+}
+
+_deleteUser(User user) async {
+  await MongoDB.deleteUser(user);
 }
 
 // Profile Card
