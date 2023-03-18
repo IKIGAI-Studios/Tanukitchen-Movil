@@ -1,15 +1,13 @@
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:tanukitchen/pages/home_page.dart';
-import 'package:tanukitchen/pages/panel_page.dart';
 import 'package:tanukitchen/pages/loading_page.dart';
-import 'package:mongo_dart/mongo_dart.dart';
+import 'package:tanukitchen/pages/panel_page.dart';
+import 'package:tanukitchen/db/mongodb.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await MongoDB.connect();
   runApp(const MyApp());
-  final db = await Db.create(
-      'mongodb+srv://root:root@tanucluster.98dt6wk.mongodb.net/myFirstDatabase');
-  await db.open();
 }
 
 class MyApp extends StatelessWidget {
