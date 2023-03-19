@@ -1,5 +1,4 @@
 import 'package:tanukitchen/models/module_model.dart';
-import 'package:tanukitchen/pages/panel_page.dart';
 import 'package:flutter/material.dart';
 
 class ModuleCard extends StatelessWidget {
@@ -10,6 +9,8 @@ class ModuleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      elevation: 0.0,
+      color: const Color.fromRGBO(39, 47, 63, 1.0),
       margin: const EdgeInsets.fromLTRB(10, 20, 10, 10),
       child: Column(
         children: [
@@ -20,42 +21,32 @@ class ModuleCard extends StatelessWidget {
               children: [
                 Expanded(
                   child: FractionallySizedBox(
-                    widthFactor: 0.70,
+                    widthFactor: 0.50,
                     child: _setImage(module.name),
                   ),
                 ),
                 Expanded(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         module.name,
                         style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15.0,
-                        ),
-                        textAlign: TextAlign.start,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20.0,
+                            color: Color.fromRGBO(6, 190, 182, 1.0)),
                       ),
-                      _setStatus(module.active),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: _setValue(module.name, module.lastValue),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: _setStatus(module.active),
+                      ),
                     ],
                   ),
                 ),
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      IconButton(
-                        onPressed: () {},
-                        color: const Color.fromRGBO(6, 190, 182, 1.0),
-                        icon: const ImageIcon(
-                          AssetImage('assets/images/enter.png'),
-                        ),
-                        tooltip: 'Enter',
-                        highlightColor: const Color.fromRGBO(6, 190, 182, .3),
-                        splashColor: const Color.fromRGBO(6, 190, 182, .3),
-                      )
-                    ],
-                  ),
-                )
               ],
             ),
           )
@@ -69,12 +60,40 @@ Widget _setStatus(bool? status) {
   return status == null
       ? const Text('')
       : status == true
-          ? const Text('Turn Off')
-          : const Text('Turn On');
+          ? const Text(
+              'Turned On',
+              style: TextStyle(color: Color.fromRGBO(217, 217, 217, 1.0)),
+            )
+          : const Text('Turned Off',
+              style: TextStyle(color: Color.fromRGBO(217, 217, 217, 1.0)));
 }
 
 Widget _setImage(String? moduleName) {
   return Image(
-    image: AssetImage('assets/images/$moduleName' + '_blue.png'),
+    image: AssetImage('assets/images/$moduleName' + '_white.png'),
   );
+}
+
+Widget _setValue(String? moduleName, double? lastValue) {
+  final moduleValue = {
+    'stove': (value) => Text(
+          'Temperature: $value',
+          style: const TextStyle(
+              fontSize: 15.0, color: Color.fromRGBO(217, 217, 217, 1.0)),
+        ),
+    'scale': (value) => Text(
+          'Weight: $value',
+          style: const TextStyle(
+              fontSize: 15.0, color: Color.fromRGBO(217, 217, 217, 1.0)),
+        ),
+    'smoke_detector': (value) => Text(
+          'Smoke detected: $value',
+          style: const TextStyle(
+              fontSize: 15.0, color: Color.fromRGBO(217, 217, 217, 1.0)),
+        ),
+  };
+
+  final style = moduleValue[moduleName];
+
+  return style != null ? style(lastValue) : const Text('');
 }

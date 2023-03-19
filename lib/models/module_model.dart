@@ -5,12 +5,14 @@ class Module {
   final String id_kitchen;
   final String name;
   final bool active;
+  final double? lastValue;
 
   const Module(
       {required this.id,
       required this.id_kitchen,
       required this.name,
-      required this.active});
+      required this.active,
+      this.lastValue});
 
   Map<String, dynamic> toMap() {
     return {
@@ -25,5 +27,6 @@ class Module {
       : id = map['_id'],
         id_kitchen = map['id_kitchen'],
         name = map['name'],
+        lastValue = map['values']?.last['value']?.toDouble(),
         active = map['active'];
 }

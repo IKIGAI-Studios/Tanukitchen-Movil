@@ -1,4 +1,5 @@
 import 'package:tanukitchen/widgets/module_card_widget.dart';
+import 'package:tanukitchen/pages/profile_page.dart';
 import 'package:tanukitchen/models/module_model.dart';
 import 'package:tanukitchen/db/mongodb.dart';
 import 'package:flutter/material.dart';
@@ -34,21 +35,52 @@ class _PanelPageState extends State<PanelPage> {
               ]),
             );
           } else {
-            // SI TODO SALE BIEN: SÍ SCAFOL
+            // SI SALE BIEN: SÍ SCAFOL
             return Scaffold(
               appBar: AppBar(
                 elevation: 0.0,
                 backgroundColor: const Color.fromRGBO(39, 47, 63, 1.0),
+                title: const Text(
+                  'tanukitchen',
+                  style: TextStyle(
+                      fontFamily: 'Somatic',
+                      color: Color.fromRGBO(217, 217, 217, 1.0)),
+                ),
+                actions: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_) => MyProfile()),
+                      );
+                    },
+                    child: const CircleAvatar(
+                      backgroundColor: Color.fromRGBO(217, 217, 217, 1.0),
+                      backgroundImage: AssetImage(
+                        'assets/images/TakumiSeated.png',
+                      ),
+                    ),
+                  ),
+                ],
               ),
               body: Column(
                 children: [
+                  const SizedBox(
+                    height: 25.0,
+                  ),
+                  const Text(
+                    'Control Panel',
+                    style: TextStyle(
+                        color: Color.fromRGBO(217, 217, 217, 1.0),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 25.0),
+                  ),
                   Expanded(
                     child: ListView.builder(
                       padding: const EdgeInsets.all(10.0),
                       itemBuilder: (context, index) {
-                        print(snapshot.data);
+                        print(snapshot.data[index]);
                         return Padding(
-                          padding: EdgeInsets.all(10.0),
+                          padding: const EdgeInsets.all(10.0),
                           child: ModuleCard(
                             module: Module.fromMap(snapshot.data[index + 1]),
                           ),

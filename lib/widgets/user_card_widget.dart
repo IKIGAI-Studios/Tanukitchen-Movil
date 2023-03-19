@@ -31,18 +31,23 @@ class UserCard extends StatelessWidget {
                 ),
                 Expanded(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        user.name,
+                        user.user,
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 15.0,
                         ),
                         textAlign: TextAlign.start,
                       ),
-                      Text(
-                        '${user.id}',
-                        textAlign: TextAlign.start,
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+                        child: Text(
+                          user.name,
+                          style: const TextStyle(fontSize: 10),
+                          textAlign: TextAlign.left,
+                        ),
                       )
                     ],
                   ),
