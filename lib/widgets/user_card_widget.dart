@@ -10,12 +10,14 @@ class UserCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      elevation: 15.0,
+      shadowColor: Color.fromRGBO(22, 36, 44, 1),
       margin: const EdgeInsets.fromLTRB(10, 20, 10, 10),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(10.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -31,15 +33,15 @@ class UserCard extends StatelessWidget {
                   child: Column(
                     children: [
                       Text(
-                        '${user.name}',
+                        user.name,
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 20.0,
+                          fontSize: 15.0,
                         ),
                         textAlign: TextAlign.start,
                       ),
                       Text(
-                        '${user.type}',
+                        '${user.id}',
                         textAlign: TextAlign.start,
                       )
                     ],
@@ -51,9 +53,12 @@ class UserCard extends StatelessWidget {
                     children: [
                       IconButton(
                         onPressed: () {},
+                        color: Color.fromRGBO(6, 190, 182, 1.0),
                         icon: const ImageIcon(
                           AssetImage('assets/images/enter.png'),
                         ),
+                        tooltip: 'Enter',
+                        splashColor: Color.fromRGBO(6, 190, 182, 1.0),
                       )
                     ],
                   ),

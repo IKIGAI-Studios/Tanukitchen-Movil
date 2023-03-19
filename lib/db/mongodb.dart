@@ -27,13 +27,15 @@ class MongoDB {
   }
 
 // Updatear usuario
-  static updateUser(User user) async {
+// comentadito se ve más bonito (no creo que cambiemos datos desde la app. O sea, tampoco creo que insertemos ni borremos, pero esos son una sola linea so... ai se kedan xjaksdf)
+/*  static updateUser(User user) async {
     var u = await collectionUsers.findOne({'_id': user.id});
     u['type'] = user.type;
     u['name'] = user.name;
     u['active'] = user.active;
     await collectionUsers.save(u);
   }
+*/
 
 // Pos deletear usuario xd
   static deleteUser(User user) async {

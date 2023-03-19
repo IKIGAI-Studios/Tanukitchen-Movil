@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   _createWelcome(context),
                   const Text(
-                    'Select your profile',
+                    "Who's cooking?",
                     style: TextStyle(
                         color: Color.fromRGBO(217, 217, 217, 1.0),
                         fontWeight: FontWeight.bold,
@@ -56,14 +56,16 @@ class _HomePageState extends State<HomePage> {
                     child: ListView.builder(
                       padding: const EdgeInsets.all(10.0),
                       itemBuilder: (context, index) {
+                        print(snapshot.data);
                         return Padding(
-                            padding: EdgeInsets.all(10.0),
-                            child: UserCard(
-                              user: User.fromMap(snapshot.data[index]),
-                              onTapDelete: () async {
-                                _deleteUser(User.fromMap(snapshot.data[index]));
-                              },
-                            ));
+                          padding: EdgeInsets.all(10.0),
+                          child: UserCard(
+                            user: User.fromMap(snapshot.data[index]),
+                            onTapDelete: () async {
+                              _deleteUser(User.fromMap(snapshot.data[index]));
+                            },
+                          ),
+                        );
                       },
                       itemCount: snapshot.data.length,
                     ),
