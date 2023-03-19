@@ -50,11 +50,11 @@ class _PanelPageState extends State<PanelPage> {
                         return Padding(
                           padding: EdgeInsets.all(10.0),
                           child: ModuleCard(
-                            module: Module.fromMap(snapshot.data[index]),
+                            module: Module.fromMap(snapshot.data[index + 1]),
                           ),
                         );
                       },
-                      itemCount: snapshot.data.length,
+                      itemCount: snapshot.data.length - 1,
                     ),
                   ),
                 ],

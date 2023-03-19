@@ -10,10 +10,7 @@ class ModuleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 15.0,
-      shadowColor: Color.fromRGBO(22, 36, 44, 1),
       margin: const EdgeInsets.fromLTRB(10, 20, 10, 10),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
       child: Column(
         children: [
           Padding(
@@ -21,12 +18,10 @@ class ModuleCard extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const Expanded(
+                Expanded(
                   child: FractionallySizedBox(
                     widthFactor: 0.70,
-                    child: Image(
-                      image: AssetImage('assets/images/TakumiWinkWhite.png'),
-                    ),
+                    child: _setImage(module.name),
                   ),
                 ),
                 Expanded(
@@ -40,10 +35,7 @@ class ModuleCard extends StatelessWidget {
                         ),
                         textAlign: TextAlign.start,
                       ),
-                      Text(
-                        '${module.id}',
-                        textAlign: TextAlign.start,
-                      )
+                      _setStatus(module.active),
                     ],
                   ),
                 ),
@@ -52,13 +44,8 @@ class ModuleCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       IconButton(
-                        onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(
-                              builder: (BuildContext context) {
-                            return PanelPage();
-                          }));
-                        },
-                        color: Color.fromRGBO(6, 190, 182, 1.0),
+                        onPressed: () {},
+                        color: const Color.fromRGBO(6, 190, 182, 1.0),
                         icon: const ImageIcon(
                           AssetImage('assets/images/enter.png'),
                         ),
@@ -76,4 +63,18 @@ class ModuleCard extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget _setStatus(bool? status) {
+  return status == null
+      ? const Text('')
+      : status == true
+          ? const Text('Turn Off')
+          : const Text('Turn On');
+}
+
+Widget _setImage(String? moduleName) {
+  return Image(
+    image: AssetImage('assets/images/$moduleName' + '_blue.png'),
+  );
 }

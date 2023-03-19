@@ -97,10 +97,6 @@ Widget _createWelcome(BuildContext context) {
   );
 }
 
-_deleteUser(User user) async {
-  await MongoDB.deleteUser(user);
-}
-
 // Profile Card
 Widget _createProfile() {
   return Card(
