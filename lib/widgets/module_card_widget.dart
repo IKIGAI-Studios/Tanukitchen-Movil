@@ -1,11 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:tanukitchen/models/user_model.dart';
+import 'package:tanukitchen/models/module_model.dart';
 import 'package:tanukitchen/pages/panel_page.dart';
+import 'package:flutter/material.dart';
 
-class UserCard extends StatelessWidget {
+class ModuleCard extends StatelessWidget {
 //  const UserCard({super.key});
-  UserCard({required this.user});
-  final User user;
+  ModuleCard({required this.module});
+  final Module module;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class UserCard extends StatelessWidget {
                   child: Column(
                     children: [
                       Text(
-                        user.name,
+                        module.name,
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 15.0,
@@ -41,7 +41,7 @@ class UserCard extends StatelessWidget {
                         textAlign: TextAlign.start,
                       ),
                       Text(
-                        '${user.id}',
+                        '${module.id}',
                         textAlign: TextAlign.start,
                       )
                     ],

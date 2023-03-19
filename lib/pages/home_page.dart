@@ -61,9 +61,6 @@ class _HomePageState extends State<HomePage> {
                           padding: EdgeInsets.all(10.0),
                           child: UserCard(
                             user: User.fromMap(snapshot.data[index]),
-                            onTapDelete: () async {
-                              _deleteUser(User.fromMap(snapshot.data[index]));
-                            },
                           ),
                         );
                       },

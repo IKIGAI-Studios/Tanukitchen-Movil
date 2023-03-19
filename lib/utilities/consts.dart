@@ -4,3 +4,9 @@ const CONN =
 
 // Agregar colecciones
 const COLLECTION_USERS = 'users';
+
+const COLLECTION_KITCHENS = 'kitchens';
+
+const COLLECTION_RECIPES = 'recipes';
+
+const COLLECTION_MODULES = 'modules';
