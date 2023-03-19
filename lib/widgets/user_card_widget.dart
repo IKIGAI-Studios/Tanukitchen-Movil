@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tanukitchen/models/user_model.dart';
+import 'package:tanukitchen/pages/panel_page.dart';
 
 class UserCard extends StatelessWidget {
 //  const UserCard({super.key});
@@ -52,13 +53,19 @@ class UserCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(
+                              builder: (BuildContext context) {
+                            return PanelPage();
+                          }));
+                        },
                         color: Color.fromRGBO(6, 190, 182, 1.0),
                         icon: const ImageIcon(
                           AssetImage('assets/images/enter.png'),
                         ),
                         tooltip: 'Enter',
-                        splashColor: Color.fromRGBO(6, 190, 182, 1.0),
+                        highlightColor: const Color.fromRGBO(6, 190, 182, .3),
+                        splashColor: const Color.fromRGBO(6, 190, 182, .3),
                       )
                     ],
                   ),

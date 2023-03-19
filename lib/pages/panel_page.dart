@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
-class PanelPage extends StatelessWidget {
+class PanelPage extends StatefulWidget {
   const PanelPage({super.key});
 
   @override
+  State<PanelPage> createState() => _PanelPageState();
+}
+
+class _PanelPageState extends State<PanelPage> {
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Panel de tanukichen')
-      ),
-    );
+    return const Placeholder();
   }
 }
