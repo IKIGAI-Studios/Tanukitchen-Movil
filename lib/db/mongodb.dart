@@ -1,5 +1,6 @@
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:tanukitchen/models/user_model.dart';
+import 'package:tanukitchen/models/module_model.dart';
 import 'package:tanukitchen/utilities/consts.dart';
 
 class MongoDB {
@@ -75,6 +76,16 @@ class MongoDB {
     await collectionUsers.save(u);
   }
 */
+
+  static updateModuleState(Module module) async {
+    var m = await collectionModules.findOne({'_id': module.id});
+    if (m['active'] == true) {
+      m['active'] = false;
+    } else {
+      m['active'] = true;
+    }
+    await collectionModules.save(m);
+  }
 
 // Pos pa borrar
   static deleteUser(User user) async {

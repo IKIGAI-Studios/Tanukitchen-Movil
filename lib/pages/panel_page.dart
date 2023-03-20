@@ -1,11 +1,13 @@
 import 'package:tanukitchen/widgets/module_card_widget.dart';
+import 'package:tanukitchen/models/user_model.dart';
 import 'package:tanukitchen/pages/profile_page.dart';
 import 'package:tanukitchen/models/module_model.dart';
 import 'package:tanukitchen/db/mongodb.dart';
 import 'package:flutter/material.dart';
 
 class PanelPage extends StatefulWidget {
-  const PanelPage({super.key});
+  final String user;
+  const PanelPage({Key? key, required this.user}) : super(key: key);
 
   @override
   State<PanelPage> createState() => _PanelPageState();
@@ -53,11 +55,19 @@ class _PanelPageState extends State<PanelPage> {
                         MaterialPageRoute(builder: (_) => MyProfile()),
                       );
                     },
-                    child: const CircleAvatar(
-                      backgroundColor: Color.fromRGBO(217, 217, 217, 1.0),
-                      backgroundImage: AssetImage(
-                        'assets/images/TakumiSeated.png',
-                      ),
+                    child: Row(
+                      children: [
+                        Text(widget.user),
+                        const Padding(
+                          padding: EdgeInsets.only(left: 15, right: 16),
+                          child: CircleAvatar(
+                            backgroundColor: Color.fromRGBO(217, 217, 217, 1.0),
+                            backgroundImage: AssetImage(
+                              'assets/images/TakumiSeated.png',
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
@@ -76,14 +86,10 @@ class _PanelPageState extends State<PanelPage> {
                   ),
                   Expanded(
                     child: ListView.builder(
-                      padding: const EdgeInsets.all(10.0),
                       itemBuilder: (context, index) {
                         print(snapshot.data[index]);
-                        return Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: ModuleCard(
-                            module: Module.fromMap(snapshot.data[index + 1]),
-                          ),
+                        return ModuleCard(
+                          module: Module.fromMap(snapshot.data[index + 1]),
                         );
                       },
                       itemCount: snapshot.data.length - 1,

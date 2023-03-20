@@ -34,7 +34,6 @@ class MyApp extends StatelessWidget {
       initialRoute: 'home',
       routes: <String, WidgetBuilder>{
         'home': (BuildContext context) => LoadingScreen(),
-        'panel': (BuildContext context) => const PanelPage(),
       },
     );
   }

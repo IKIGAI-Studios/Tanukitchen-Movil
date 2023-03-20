@@ -60,7 +60,8 @@ class UserCard extends StatelessWidget {
                         onPressed: () {
                           Navigator.push(context, MaterialPageRoute(
                               builder: (BuildContext context) {
-                            return PanelPage();
+                            var username = user.user;
+                            return PanelPage(user: username);
                           }));
                         },
                         color: Color.fromRGBO(6, 190, 182, 1.0),

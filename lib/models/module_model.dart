@@ -4,10 +4,10 @@ class Module {
   final ObjectId id;
   final String id_kitchen;
   final String name;
-  final bool active;
+  late bool active;
   final double? lastValue;
 
-  const Module(
+  Module(
       {required this.id,
       required this.id_kitchen,
       required this.name,

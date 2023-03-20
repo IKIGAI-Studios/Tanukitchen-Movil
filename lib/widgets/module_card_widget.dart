@@ -1,11 +1,17 @@
+import 'package:tanukitchen/db/mongodb.dart';
 import 'package:tanukitchen/models/module_model.dart';
 import 'package:flutter/material.dart';
 
-class ModuleCard extends StatelessWidget {
-//  const UserCard({super.key});
+class ModuleCard extends StatefulWidget {
+  //const ModuleCard({super.key});
   ModuleCard({required this.module});
   final Module module;
 
+  @override
+  State<ModuleCard> createState() => _ModuleCardState();
+}
+
+class _ModuleCardState extends State<ModuleCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -22,7 +28,7 @@ class ModuleCard extends StatelessWidget {
                 Expanded(
                   child: FractionallySizedBox(
                     widthFactor: 0.50,
-                    child: _setImage(module.name),
+                    child: _setImage(widget.module.name),
                   ),
                 ),
                 Expanded(
@@ -30,7 +36,7 @@ class ModuleCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        module.name,
+                        widget.module.name,
                         style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20.0,
@@ -38,12 +44,26 @@ class ModuleCard extends StatelessWidget {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 10),
-                        child: _setValue(module.name, module.lastValue),
+                        child: _setValue(
+                            widget.module.name, widget.module.lastValue),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 10),
-                        child: _setStatus(module.active),
-                      ),
+                          padding: const EdgeInsets.only(top: 10),
+                          child: Row(children: [
+                            _setStatus(widget.module.active),
+                            Switch(
+                              activeColor:
+                                  const Color.fromRGBO(6, 190, 182, 1.0),
+                              hoverColor: const Color.fromRGBO(6, 190, 182, .5),
+                              value: widget.module.active,
+                              onChanged: (bool value) async {
+                                setState(() {
+                                  widget.module.active = value;
+                                });
+                                await MongoDB.updateModuleState(widget.module);
+                              },
+                            ),
+                          ])),
                     ],
                   ),
                 ),
@@ -54,46 +74,46 @@ class ModuleCard extends StatelessWidget {
       ),
     );
   }
-}
 
-Widget _setStatus(bool? status) {
-  return status == null
-      ? const Text('')
-      : status == true
-          ? const Text(
-              'Turned On',
-              style: TextStyle(color: Color.fromRGBO(217, 217, 217, 1.0)),
-            )
-          : const Text('Turned Off',
-              style: TextStyle(color: Color.fromRGBO(217, 217, 217, 1.0)));
-}
+  Widget _setStatus(bool? status) {
+    return status == null
+        ? const Text('')
+        : status == true
+            ? const Text(
+                'Turned On',
+                style: TextStyle(color: Color.fromRGBO(217, 217, 217, 1.0)),
+              )
+            : const Text('Turned Off',
+                style: TextStyle(color: Color.fromRGBO(217, 217, 217, 1.0)));
+  }
 
-Widget _setImage(String? moduleName) {
-  return Image(
-    image: AssetImage('assets/images/$moduleName' + '_white.png'),
-  );
-}
+  Widget _setImage(String? moduleName) {
+    return Image(
+      image: AssetImage('assets/images/$moduleName' + '_white.png'),
+    );
+  }
 
-Widget _setValue(String? moduleName, double? lastValue) {
-  final moduleValue = {
-    'stove': (value) => Text(
-          'Temperature: $value',
-          style: const TextStyle(
-              fontSize: 15.0, color: Color.fromRGBO(217, 217, 217, 1.0)),
-        ),
-    'scale': (value) => Text(
-          'Weight: $value',
-          style: const TextStyle(
-              fontSize: 15.0, color: Color.fromRGBO(217, 217, 217, 1.0)),
-        ),
-    'smoke_detector': (value) => Text(
-          'Smoke detected: $value',
-          style: const TextStyle(
-              fontSize: 15.0, color: Color.fromRGBO(217, 217, 217, 1.0)),
-        ),
-  };
+  Widget _setValue(String? moduleName, double? lastValue) {
+    final moduleValue = {
+      'stove': (value) => Text(
+            'Temperature: $value',
+            style: const TextStyle(
+                fontSize: 15.0, color: Color.fromRGBO(217, 217, 217, 1.0)),
+          ),
+      'scale': (value) => Text(
+            'Weight: $value',
+            style: const TextStyle(
+                fontSize: 15.0, color: Color.fromRGBO(217, 217, 217, 1.0)),
+          ),
+      'smoke_detector': (value) => Text(
+            'Smoke detected: $value',
+            style: const TextStyle(
+                fontSize: 15.0, color: Color.fromRGBO(217, 217, 217, 1.0)),
+          ),
+    };
 
-  final style = moduleValue[moduleName];
+    final style = moduleValue[moduleName];
 
-  return style != null ? style(lastValue) : const Text('');
+    return style != null ? style(lastValue) : const Text('');
+  }
 }
