@@ -6,7 +6,7 @@ import 'package:tanukitchen/db/mongodb.dart';
 import 'package:flutter/material.dart';
 
 class PanelPage extends StatefulWidget {
-  final String user;
+  final User user;
   const PanelPage({Key? key, required this.user}) : super(key: key);
 
   @override
@@ -52,18 +52,21 @@ class _PanelPageState extends State<PanelPage> {
                   GestureDetector(
                     onTap: () {
                       Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_) => MyProfile()),
+                        MaterialPageRoute(
+                            builder: (_) => MyProfile(
+                                  user: widget.user,
+                                )),
                       );
                     },
                     child: Row(
                       children: [
-                        Text(widget.user),
+                        Text(widget.user.user),
                         const Padding(
                           padding: EdgeInsets.only(left: 15, right: 16),
                           child: CircleAvatar(
                             backgroundColor: Color.fromRGBO(217, 217, 217, 1.0),
                             backgroundImage: AssetImage(
-                              'assets/images/TakumiSeated.png',
+                              'assets/images/pfp.jpg',
                             ),
                           ),
                         ),

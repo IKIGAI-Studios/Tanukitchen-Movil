@@ -1,6 +1,5 @@
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:tanukitchen/pages/loading_page.dart';
-import 'package:tanukitchen/pages/panel_page.dart';
 import 'package:tanukitchen/db/mongodb.dart';
 import 'package:flutter/material.dart';
 
