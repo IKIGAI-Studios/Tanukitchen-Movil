@@ -11,7 +11,7 @@ class UserCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 15.0,
-      shadowColor: Color.fromRGBO(22, 36, 44, 1),
+      shadowColor: const Color.fromRGBO(22, 36, 44, 1),
       margin: const EdgeInsets.fromLTRB(10, 20, 10, 10),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
       child: Column(

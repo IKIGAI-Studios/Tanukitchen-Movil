@@ -89,7 +89,7 @@ class _ModuleCardState extends State<ModuleCard> {
 
   Widget _setImage(String? moduleName) {
     return Image(
-      image: AssetImage('assets/images/$moduleName' + '_white.png'),
+      image: AssetImage('assets/images/${moduleName}_white.png'),
     );
   }
 

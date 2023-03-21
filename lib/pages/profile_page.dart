@@ -1,4 +1,6 @@
+import 'package:tanukitchen/widgets/profile_statistic_widget.dart';
 import 'package:tanukitchen/widgets/profile_banner_widget.dart';
+import 'package:tanukitchen/widgets/profile_tabbar_widget.dart';
 import 'package:tanukitchen/models/user_model.dart';
 import 'package:tanukitchen/db/mongodb.dart';
 import 'package:flutter/material.dart';
@@ -45,23 +47,22 @@ class _MyProfileState extends State<MyProfile> {
                       color: Color.fromRGBO(217, 217, 217, 1.0)),
                 ),
               ),
-              body: Center(
-                child: Column(children: [
-                  const SizedBox(
-                    height: 25.0,
+              body: Column(children: [
+                const SizedBox(
+                  height: 25.0,
+                ),
+                const Text(
+                  'My profile',
+                  style: TextStyle(
+                    color: Color.fromRGBO(217, 217, 217, 1.0),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25.0,
                   ),
-                  const Text(
-                    'My profile',
-                    style: TextStyle(
-                      color: Color.fromRGBO(217, 217, 217, 1.0),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25.0,
-                    ),
-                  ),
-                  ProfileBanner(
-                      screenWidth: _screenSize.width, user: widget.user),
-                ]),
-              ),
+                ),
+                ProfileBanner(
+                    screenWidth: _screenSize.width, user: widget.user),
+                ProfileTabBar(user: widget.user),
+              ]),
             );
           }
         });

@@ -97,4 +97,6 @@ class MongoDB {
  BIBLIOGRAFÍA
  mongo_dart | Dart Package. (n.d.). Dart Packages. https://pub.dev/packages/mongo_dart
  Luis Serrano Donaire. (2022, January 5). 23. Curso de FLUTTER: MongoDB [Video]. YouTube. https://www.youtube.com/watch?v=b3ZCYY3bIhg
+
+ se cayo chat gaipt
 */

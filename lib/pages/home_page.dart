@@ -56,7 +56,6 @@ class _HomePageState extends State<HomePage> {
                     child: ListView.builder(
                       padding: const EdgeInsets.all(10.0),
                       itemBuilder: (context, index) {
-                        print(snapshot.data);
                         return Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: UserCard(

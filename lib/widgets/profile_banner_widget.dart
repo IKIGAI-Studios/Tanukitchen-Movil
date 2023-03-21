@@ -2,7 +2,7 @@ import 'package:tanukitchen/models/user_model.dart';
 import 'package:flutter/material.dart';
 
 class ProfileBanner extends StatelessWidget {
-  const ProfileBanner({this.screenWidth, this.user});
+  ProfileBanner({this.screenWidth, this.user});
   final double? screenWidth;
   final User? user;
 
@@ -11,8 +11,6 @@ class ProfileBanner extends StatelessWidget {
     return Column(
       children: [
         Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
               child: Column(
@@ -101,6 +99,9 @@ class ProfileBanner extends StatelessWidget {
               ],
             )
           ],
+        ),
+        SizedBox(
+          height: 30.0,
         )
       ],
     );

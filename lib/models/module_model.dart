@@ -28,5 +28,6 @@ class Module {
         id_kitchen = map['id_kitchen'],
         name = map['name'],
         lastValue = map['values']?.last['value']?.toDouble(),
+        // agregar
         active = map['active'];
 }
