@@ -5,12 +5,14 @@ class Module {
   final String id_kitchen;
   final String name;
   late bool active;
+  int? activations;
   final double? lastValue;
 
   Module(
       {required this.id,
       required this.id_kitchen,
       required this.name,
+      this.activations,
       required this.active,
       this.lastValue});
 
@@ -19,6 +21,7 @@ class Module {
       '_id': id,
       'id_kitchen': id_kitchen,
       'name': name,
+      'activations': activations,
       'active': active
     };
   }
@@ -27,6 +30,7 @@ class Module {
       : id = map['_id'],
         id_kitchen = map['id_kitchen'],
         name = map['name'],
+        activations = map['activations'],
         lastValue = map['values']?.last['value']?.toDouble(),
         // agregar
         active = map['active'];

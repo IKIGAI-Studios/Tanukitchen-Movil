@@ -66,6 +66,21 @@ class MongoDB {
     await collectionUsers.insertAll([user.toMap()]);
   }
 
+  static Future<String> getFavorite(User user) async {
+    var u = await collectionUsers.findOne({'_id': user.id});
+
+    var maxCount = 0;
+    var favoriteRecipe = "";
+    for (var countRecipe in u['count_recipes']) {
+      if (countRecipe['count'] > maxCount) {
+        maxCount = countRecipe['count'];
+        favoriteRecipe = countRecipe['name'];
+      }
+    }
+
+    return favoriteRecipe;
+  }
+
 // Métodos de updateo
 // comentadito se ve más bonito (no creo que cambiemos datos desde la app. O sea, tampoco creo que insertemos ni borremos, pero esos son una sola linea so... ai se kedan xjaksdf)
 /*  static updateUser(User user) async {

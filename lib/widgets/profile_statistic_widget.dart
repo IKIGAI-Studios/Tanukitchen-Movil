@@ -48,11 +48,13 @@ class _StatisticsViewsState extends State<StatisticsViews> {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(30.0),
-                    child: _statisticsDetector(),
+                    child:
+                        _statisticsDetector(Module.fromMap(snapshot.data[1])),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(30.0),
-                    child: _statisticsExtractor(),
+                    child:
+                        _statisticsExtractor(Module.fromMap(snapshot.data[4])),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(30.0),
@@ -67,32 +69,96 @@ class _StatisticsViewsState extends State<StatisticsViews> {
 
   Widget _statisticsStove(Module stove) {
     return Card(
-      child: Column(
-        children: [Text(stove.name)],
+      color: const Color.fromRGBO(217, 217, 217, 1.0),
+      child: Padding(
+        padding: const EdgeInsets.all(30.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [Text(stove.name)],
+        ),
       ),
     );
   }
 
-  Widget _statisticsDetector() {
+  Widget _statisticsDetector(Module detector) {
     return Card(
-      child: Column(
-        children: [Text('detecotr')],
+      color: const Color.fromRGBO(217, 217, 217, 1.0),
+      child: Padding(
+        padding: const EdgeInsets.all(30.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [Text('detecotr')],
+        ),
       ),
     );
   }
 
-  Widget _statisticsExtractor() {
+  Widget _statisticsExtractor(Module extractor) {
     return Card(
-      child: Column(
-        children: [Text('Extractor')],
+      color: const Color.fromRGBO(217, 217, 217, 1.0),
+      child: Padding(
+        padding: const EdgeInsets.all(30.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Text(
+              'Activations: ${extractor.activations}',
+              style: const TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromRGBO(39, 47, 63, 1.0)),
+            ),
+          ],
+        ),
       ),
     );
   }
 
   Widget _statisticsGeneral(User user) {
     return Card(
-      child: Column(
-        children: [Text('General'), Text(user.name)],
+      color: const Color.fromRGBO(217, 217, 217, 1.0),
+      child: Padding(
+        padding: const EdgeInsets.all(30.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Text(
+              'Completed recipes: ${user.recipes_completed}',
+              style: const TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromRGBO(39, 47, 63, 1.0)),
+            ),
+            Text(
+              'Last recipe completed: ${user.last_recipe}',
+              style: const TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromRGBO(39, 47, 63, 1.0)),
+            ),
+            FutureBuilder(
+                future: MongoDB.getFavorite(user),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Text(
+                      'Favorite recipe: ${snapshot.data}',
+                      style: const TextStyle(
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromRGBO(39, 47, 63, 1.0)),
+                    );
+                  } else if (snapshot.hasError) {
+                    return const Text('Error');
+                  } else {
+                    return const Text('N/A');
+                  }
+                }),
+          ],
+        ),
       ),
     );
   }

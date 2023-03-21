@@ -63,7 +63,7 @@ class UserCard extends StatelessWidget {
                             return PanelPage(user: user);
                           }));
                         },
-                        color: Color.fromRGBO(6, 190, 182, 1.0),
+                        color: const Color.fromRGBO(6, 190, 182, 1.0),
                         icon: const ImageIcon(
                           AssetImage('assets/images/enter.png'),
                         ),
