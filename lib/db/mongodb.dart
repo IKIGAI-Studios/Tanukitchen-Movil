@@ -66,6 +66,8 @@ class MongoDB {
     await collectionUsers.insertAll([user.toMap()]);
   }
 
+
+// Obtener receta favorita
   static Future<String> getFavorite(User user) async {
     var u = await collectionUsers.findOne({'_id': user.id});
 
@@ -77,9 +79,29 @@ class MongoDB {
         favoriteRecipe = countRecipe['name'];
       }
     }
-
     return favoriteRecipe;
   }
+
+
+// Obtener detección promedio de humo 
+static Future<double> avgDetector(Module module) async{
+  var m = await collectionModules.findOne({'_id': module.id});
+
+  var c = 0;
+  var avg = 0.0;
+  for (var value in m['values']){
+    avg = avg+value['value'];
+    c++;
+  }
+  return avg/c;
+}
+
+static Future<bool> isActive(Module module) async{
+  var m = await collectionModules.findOne({'_id': module.id});
+  
+  var active = m['active'];
+  return active;
+}
 
 // Métodos de updateo
 // comentadito se ve más bonito (no creo que cambiemos datos desde la app. O sea, tampoco creo que insertemos ni borremos, pero esos son una sola linea so... ai se kedan xjaksdf)
@@ -92,6 +114,7 @@ class MongoDB {
   }
 */
 
+// Actualizar estado (encendido o apagado) de los módulos
   static updateModuleState(Module module) async {
     var m = await collectionModules.findOne({'_id': module.id});
     if (m['active'] == true) {

@@ -5,15 +5,19 @@ class Module {
   final String id_kitchen;
   final String name;
   late bool active;
-  int? activations;
+  late int? activations;
+  late int? maxduration;
+  late double? avgdetection;
   final double? lastValue;
 
   Module(
       {required this.id,
       required this.id_kitchen,
       required this.name,
-      this.activations,
       required this.active,
+       this.activations,
+      this.maxduration,
+      this.avgdetection,
       this.lastValue});
 
   Map<String, dynamic> toMap() {
@@ -22,7 +26,7 @@ class Module {
       'id_kitchen': id_kitchen,
       'name': name,
       'activations': activations,
-      'active': active
+      'active': active,
     };
   }
 
@@ -31,7 +35,10 @@ class Module {
         id_kitchen = map['id_kitchen'],
         name = map['name'],
         activations = map['activations'],
-        lastValue = map['values']?.last['value']?.toDouble(),
+        active = map['active'],
         // agregar
-        active = map['active'];
+        lastValue = map['values']?.last['value']?.toDouble(),
+
+        maxduration= map['max_active']?['seconds'];
+ 
 }

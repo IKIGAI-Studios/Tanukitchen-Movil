@@ -89,7 +89,24 @@ class _StatisticsViewsState extends State<StatisticsViews> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [Text('detecotr')],
+          children: [FutureBuilder(
+                future: MongoDB.avgDetector(detector),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Text(
+                      'Average smoke detection: ${snapshot.data}',
+                      style: const TextStyle(
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromRGBO(39, 47, 63, 1.0)),
+                    );
+                  } else if (snapshot.hasError) {
+                    return const Text('Error');
+                  } else {
+                    return const Text('N/A');
+                  }
+                }),
+        ],
         ),
       ),
     );
@@ -111,6 +128,10 @@ class _StatisticsViewsState extends State<StatisticsViews> {
                   fontWeight: FontWeight.bold,
                   color: Color.fromRGBO(39, 47, 63, 1.0)),
             ),
+            Text('Last Max duration: ${(extractor.maxduration!)/60} minutes', style: const TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromRGBO(39, 47, 63, 1.0)),),
           ],
         ),
       ),
