@@ -46,34 +46,26 @@ class _ModuleCardState extends State<ModuleCard> {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 10),
-                        child: 
-                        _setValue(
+                        child: _setValue(
                             widget.module.name, widget.module.lastValue),
                       ),
                       Padding(
                           padding: const EdgeInsets.only(top: 10),
                           child: Row(children: [
-                            _setStatus( widget.module.active),
-                            FutureBuilder(
-                future: MongoDB.isActive(widget.module),
-                builder: (context, snapshot) {
-                  if(snapshot.hasData){
-                              return Switch(
+                            _setStatus(widget.module.active),
+                            Switch(
                                 activeColor:
                                     const Color.fromRGBO(6, 190, 182, 1.0),
-                                hoverColor: const Color.fromRGBO(6, 190, 182, .5),
-                                value: (snapshot.data)!,
-                                
+                                hoverColor:
+                                    const Color.fromRGBO(6, 190, 182, .5),
+                                value: widget.module.active,
                                 onChanged: (bool value) async {
-                               setState(() {
+                                  setState(() {
                                     widget.module.active = value;
-                                  }); 
-                                  await MongoDB.updateModuleState(widget.module);
-                                }
-                              );      }     else{
-                                return Text('Error');
-                              }                                         
-  }),
+                                  });
+                                  await MongoDB.updateModuleState(
+                                      widget.module);
+                                })
                           ])),
                     ],
                   ),

@@ -8,14 +8,14 @@ class Module {
   late int? activations;
   late int? maxduration;
   late double? avgdetection;
-  final double? lastValue;
+  late double? lastValue;
 
   Module(
       {required this.id,
       required this.id_kitchen,
       required this.name,
       required this.active,
-       this.activations,
+      this.activations,
       this.maxduration,
       this.avgdetection,
       this.lastValue});
@@ -38,7 +38,5 @@ class Module {
         active = map['active'],
         // agregar
         lastValue = map['values']?.last['value']?.toDouble(),
-
-        maxduration= map['max_active']?['seconds'];
- 
+        maxduration = map['max_active']?['seconds'];
 }

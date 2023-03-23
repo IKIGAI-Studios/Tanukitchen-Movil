@@ -75,7 +75,32 @@ class _StatisticsViewsState extends State<StatisticsViews> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [Text(stove.name)],
+          children: [
+            Text(
+              'Activations: ${stove.activations}',
+              style: const TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromRGBO(39, 47, 63, 1.0)),
+            ),
+            FutureBuilder(
+                future: MongoDB.avgValue(stove),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Text(
+                      'Average temperature detection: ${snapshot.data} C°',
+                      style: const TextStyle(
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromRGBO(39, 47, 63, 1.0)),
+                    );
+                  } else if (snapshot.hasError) {
+                    return const Text('Error');
+                  } else {
+                    return const Text('N/A');
+                  }
+                }),
+          ],
         ),
       ),
     );
@@ -89,8 +114,9 @@ class _StatisticsViewsState extends State<StatisticsViews> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [FutureBuilder(
-                future: MongoDB.avgDetector(detector),
+          children: [
+            FutureBuilder(
+                future: MongoDB.avgValue(detector),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     return Text(
@@ -106,7 +132,7 @@ class _StatisticsViewsState extends State<StatisticsViews> {
                     return const Text('N/A');
                   }
                 }),
-        ],
+          ],
         ),
       ),
     );
@@ -128,10 +154,13 @@ class _StatisticsViewsState extends State<StatisticsViews> {
                   fontWeight: FontWeight.bold,
                   color: Color.fromRGBO(39, 47, 63, 1.0)),
             ),
-            Text('Last Max duration: ${(extractor.maxduration!)/60} minutes', style: const TextStyle(
+            Text(
+              'Last Max duration: ${(extractor.maxduration!) / 60} minutes',
+              style: const TextStyle(
                   fontSize: 16.0,
                   fontWeight: FontWeight.bold,
-                  color: Color.fromRGBO(39, 47, 63, 1.0)),),
+                  color: Color.fromRGBO(39, 47, 63, 1.0)),
+            ),
           ],
         ),
       ),
