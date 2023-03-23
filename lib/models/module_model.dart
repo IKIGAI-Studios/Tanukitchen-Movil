@@ -8,7 +8,7 @@ class Module {
   late int? activations;
   late int? maxduration;
   late double? avgdetection;
-  late double? lastValue;
+  late double? firstValue;
 
   Module(
       {required this.id,
@@ -18,7 +18,7 @@ class Module {
       this.activations,
       this.maxduration,
       this.avgdetection,
-      this.lastValue});
+      this.firstValue});
 
   Map<String, dynamic> toMap() {
     return {
@@ -37,6 +37,6 @@ class Module {
         activations = map['activations'],
         active = map['active'],
         // agregar
-        lastValue = map['values']?.last['value']?.toDouble(),
+        firstValue = map['values']?.first['value']?.toDouble(),
         maxduration = map['max_active']?['seconds'];
 }
