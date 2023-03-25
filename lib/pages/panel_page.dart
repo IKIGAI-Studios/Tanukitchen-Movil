@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:tanukitchen/widgets/module_card_widget.dart';
 import 'package:tanukitchen/models/user_model.dart';
 import 'package:tanukitchen/pages/profile_page.dart';
@@ -15,20 +17,23 @@ class PanelPage extends StatefulWidget {
 
 class _PanelPageState extends State<PanelPage> {
   @override
+  void initState() {
+    super.initState();
+    Timer.periodic(const Duration(seconds: 1), (Timer t) => setState(() {}));
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+
+  @override
   Widget build(BuildContext context) {
     return FutureBuilder(
         future: MongoDB.getModules(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(
-                color: Color.fromRGBO(6, 190, 182, 1.0),
-                backgroundColor: Color.fromRGBO(39, 47, 63, 1.0),
-              ),
-            );
-
-            // TAKITO MAN
-          } else if (snapshot.hasError) {
+          if (snapshot.hasError) {
             return Container(
               child: Column(children: [
                 Image.asset('assets/images/TakumiSeatedBlue.png'),

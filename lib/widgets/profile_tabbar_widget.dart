@@ -40,7 +40,7 @@ class _ProfileTabBarState extends State<ProfileTabBar> {
                         Tab(
                           icon: Image.asset(
                             'assets/images/stove_white.png',
-                            width: _screenSize.width * .10,
+                            width: _screenSize.width * .09,
                           ),
                           text: 'Stove',
                         ),
@@ -51,7 +51,7 @@ class _ProfileTabBarState extends State<ProfileTabBar> {
                         Tab(
                           icon: Image.asset(
                             'assets/images/smoke_detector_white.png',
-                            width: _screenSize.width * .10,
+                            width: _screenSize.width * .07,
                           ),
                           text: 'S. Detector',
                         ),
@@ -62,7 +62,7 @@ class _ProfileTabBarState extends State<ProfileTabBar> {
                         Tab(
                           icon: Image.asset(
                             'assets/images/extractor_white.png',
-                            width: _screenSize.width * .10,
+                            width: _screenSize.width * .07,
                           ),
                           text: 'S. Extractor',
                         ),
@@ -73,7 +73,7 @@ class _ProfileTabBarState extends State<ProfileTabBar> {
                       Tab(
                         icon: Image.asset(
                           'assets/images/recipes_white.png',
-                          width: _screenSize.width * .10,
+                          width: _screenSize.width * .07,
                         ),
                         text: 'General',
                       ),

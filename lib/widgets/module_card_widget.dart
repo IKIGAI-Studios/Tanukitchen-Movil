@@ -47,7 +47,7 @@ class _ModuleCardState extends State<ModuleCard> {
                       Padding(
                         padding: const EdgeInsets.only(top: 10),
                         child: _setValue(
-                            widget.module.name, widget.module.lastValue),
+                            widget.module.name, widget.module.firstValue),
                       ),
                       Padding(
                           padding: const EdgeInsets.only(top: 10),

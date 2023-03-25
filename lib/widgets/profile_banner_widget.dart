@@ -42,7 +42,7 @@ class ProfileBanner extends StatelessWidget {
                     borderRadius: BorderRadius.circular(100),
                     child: Image.asset(
                       'assets/images/pfp.jpg',
-                      height: screenWidth! * .30,
+                      height: screenWidth! * .25,
                     ),
                   ),
                   const SizedBox(
@@ -101,7 +101,7 @@ class ProfileBanner extends StatelessWidget {
           ],
         ),
         SizedBox(
-          height: 30.0,
+          height: 25.0,
         )
       ],
     );
