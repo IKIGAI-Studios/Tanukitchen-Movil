@@ -23,10 +23,9 @@ class MongoDB {
 
   static Future<List<Map<String, dynamic>>> getUsers() async {
     try {
-      final users = await collectionUsers.find().toList();
+      final users = await collectionUsers.find({'active': true}).toList();
       return users;
     } catch (e) {
-      print(e);
       return Future.value();
     }
   }
@@ -36,7 +35,6 @@ class MongoDB {
       final kitchens = await collectionKitchens.find().toList();
       return kitchens;
     } catch (e) {
-      print(e);
       return Future.value();
     }
   }
@@ -46,7 +44,6 @@ class MongoDB {
       final recipes = await collectionRecipes.find().toList();
       return recipes;
     } catch (e) {
-      print(e);
       return Future.value();
     }
   }
@@ -56,7 +53,6 @@ class MongoDB {
       final modules = await collectionModules.find().toList();
       return modules;
     } catch (e) {
-      print(e);
       return Future.value();
     }
   }
@@ -81,7 +77,7 @@ class MongoDB {
     return favoriteRecipe;
   }
 
-// Obtener detección promedio de humo
+  // Obtener detección promedio de humo
   static Future<double> avgValue(Module module) async {
     var m = await collectionModules.findOne({'_id': module.id});
 
@@ -94,6 +90,18 @@ class MongoDB {
     var res = avg / c;
     var roundedRes = res.roundToDouble();
     return roundedRes;
+  }
+
+  // Obtener detección promedio de humo
+  static Future<double> electricUsage(Module module) async {
+    var m = await collectionModules.findOne({'_id': module.id});
+
+    var sec = m['time_usage']['seconds'];
+    var horas = sec / 3600;
+    var kwh = horas * .5;
+    var consumo = kwh * .97;
+
+    return consumo.roundToDouble();
   }
 
   static Future<bool> isActive(Module module) async {
@@ -123,6 +131,13 @@ class MongoDB {
       m['active'] = true;
     }
     await collectionModules.save(m);
+  }
+
+  static updateUserState(User user) async {
+    var usr = await collectionUsers.findOne({'_id': user.id});
+    if (usr['active']) usr['active'] = false;
+
+    await collectionUsers.save(usr);
   }
 
 // Pos pa borrar

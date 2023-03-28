@@ -84,22 +84,41 @@ class _StatisticsViewsState extends State<StatisticsViews> {
                   color: Color.fromRGBO(39, 47, 63, 1.0)),
             ),
             FutureBuilder(
-                future: MongoDB.avgValue(stove),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return Text(
-                      'Average temperature detection: ${snapshot.data} C°',
-                      style: const TextStyle(
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.bold,
-                          color: Color.fromRGBO(39, 47, 63, 1.0)),
-                    );
-                  } else if (snapshot.hasError) {
-                    return const Text('Error');
-                  } else {
-                    return const Text('N/A');
-                  }
-                }),
+              future: MongoDB.avgValue(stove),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Text(
+                    'Average temperature detection: ${snapshot.data} C°',
+                    style: const TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromRGBO(39, 47, 63, 1.0)),
+                  );
+                } else if (snapshot.hasError) {
+                  return const Text('Error');
+                } else {
+                  return const Text('N/A');
+                }
+              },
+            ),
+            FutureBuilder(
+              future: MongoDB.electricUsage(stove),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Text(
+                    'Average cost: \$${snapshot.data} mxn',
+                    style: const TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromRGBO(39, 47, 63, 1.0)),
+                  );
+                } else if (snapshot.hasError) {
+                  return const Text('Error');
+                } else {
+                  return const Text('N/A');
+                }
+              },
+            ),
           ],
         ),
       ),
