@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:tanukitchen/models/user_model.dart';
 import 'package:tanukitchen/models/module_model.dart';
@@ -59,6 +61,20 @@ class MongoDB {
       print(e);
       return Future.value();
     }
+  }
+
+  static Stream<List<Map<String, dynamic>>> getModulesStream() {
+    var controller = StreamController<List<Map<String, dynamic>>>();
+
+    collectionModules.find().listen((modules) {
+      controller.add(modules);
+    }, onError: (error) {
+      controller.addError(error);
+    }, onDone: () {
+      controller.close();
+    });
+
+    return controller.stream;
   }
 
 // Métodos de inserción (no creo que ocupemos xd)
@@ -128,6 +144,12 @@ class MongoDB {
 // Pos pa borrar
   static deleteUser(User user) async {
     await collectionUsers.remove(where.id(user.id));
+  }
+
+  static Stream<List<Map<String, dynamic>>> getModulesAsStream() {
+    var controller = StreamController<List<Map<String, dynamic>>>();
+    collectionModules.find().listen((data) => controller.add(data));
+    return controller.stream;
   }
 }
 

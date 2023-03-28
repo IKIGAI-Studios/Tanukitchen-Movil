@@ -24,7 +24,7 @@ class _ProfileTabBarState extends State<ProfileTabBar> {
             TabBar(
                 labelColor: const Color.fromRGBO(6, 190, 182, 1.0),
                 indicatorColor: const Color.fromRGBO(6, 190, 182, 1.0),
-                dividerColor: const Color.fromRGBO(6, 190, 182, 1.0),
+                //dividerColor: const Color.fromRGBO(6, 190, 182, 1.0),
                 unselectedLabelColor: const Color.fromRGBO(217, 217, 217, 1),
                 indicatorPadding: EdgeInsets.only(
                     left: _screenSize.width * .1,
