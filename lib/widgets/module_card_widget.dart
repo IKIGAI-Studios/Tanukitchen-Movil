@@ -38,11 +38,25 @@ class _ModuleCardState extends State<ModuleCard> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        widget.module.name,
+                        (() {
+                          switch (widget.module.name) {
+                            case "smoke_detector":
+                              return "Smoke Detector";
+                            case "scale":
+                              return "Scale";
+                            case "stove":
+                              return "Stove";
+                            case "extractor":
+                              return "Extractor";
+                            default:
+                              return widget.module.name;
+                          }
+                        })(),
                         style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20.0,
-                            color: Color.fromRGBO(6, 190, 182, 1.0)),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20.0,
+                          color: Color.fromRGBO(6, 190, 182, 1.0),
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 10),
@@ -53,19 +67,20 @@ class _ModuleCardState extends State<ModuleCard> {
                           padding: const EdgeInsets.only(top: 10),
                           child: Row(children: [
                             _setStatus(widget.module.active),
-                            Switch(
-                                activeColor:
-                                    const Color.fromRGBO(6, 190, 182, 1.0),
-                                hoverColor:
-                                    const Color.fromRGBO(6, 190, 182, .5),
-                                value: widget.module.active,
-                                onChanged: (bool value) async {
-                                  setState(() {
-                                    widget.module.active = value;
-                                  });
-                                  await MongoDB.updateModuleState(
-                                      widget.module);
-                                })
+                            if (widget.module.name != "smoke_detector")
+                              Switch(
+                                  activeColor:
+                                      const Color.fromRGBO(6, 190, 182, 1.0),
+                                  hoverColor:
+                                      const Color.fromRGBO(6, 190, 182, .5),
+                                  value: widget.module.active,
+                                  onChanged: (bool value) async {
+                                    setState(() {
+                                      widget.module.active = value;
+                                    });
+                                    await MongoDB.updateModuleState(
+                                        widget.module);
+                                  })
                           ])),
                     ],
                   ),

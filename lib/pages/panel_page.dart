@@ -37,12 +37,10 @@ class _PanelPageState extends State<PanelPage> {
       future: MongoDB.getModules(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasError) {
-          return Container(
-            child: Column(children: [
-              Image.asset('assets/images/TakumiSeatedBlue.png'),
-              const Text('Lo sentimos, ocurrió un error. Inténtalo más tarde.'),
-            ]),
-          );
+          return Column(children: [
+            Image.asset('assets/images/TakumiSeatedBlue.png'),
+            const Text('Lo sentimos, ocurrió un error. Inténtalo más tarde.'),
+          ]);
         } else {
           // SI SALE BIEN: SÍ SCAFOL
           return Scaffold(
@@ -74,7 +72,7 @@ class _PanelPageState extends State<PanelPage> {
                         child: CircleAvatar(
                           backgroundColor: Color.fromRGBO(217, 217, 217, 1.0),
                           backgroundImage: AssetImage(
-                            'assets/images/pfp.jpg',
+                            'assets/images/pfp.png',
                           ),
                         ),
                       ),

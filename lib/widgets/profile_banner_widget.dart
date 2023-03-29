@@ -44,7 +44,7 @@ class ProfileBanner extends StatelessWidget {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(100),
                     child: Image.asset(
-                      'assets/images/pfp.jpg',
+                      'assets/images/pfp.png',
                       height: screenWidth! * .25,
                     ),
                   ),
@@ -105,7 +105,7 @@ class ProfileBanner extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    TextButton(
+                    /* TextButton(
                       child: const Text(
                         '',
                         textAlign: TextAlign.center,
@@ -114,7 +114,7 @@ class ProfileBanner extends StatelessWidget {
                             fontSize: 15.0),
                       ),
                       onPressed: () {},
-                    ),
+                    ),*/
                     TextButton(
                       child: const Text(
                         'Delete',
