@@ -29,13 +29,10 @@ class _StatisticsViewsState extends State<StatisticsViews> {
           }
           // TAKITO MAN
           else if (snapshot.hasError) {
-            return Container(
-              child: Column(children: [
-                Image.asset('assets/images/TakumiSeatedBlue.png'),
-                const Text(
-                    'Lo sentimos, ocurrió un error. Inténtalo más tarde.'),
-              ]),
-            );
+            return Column(children: [
+              Image.asset('assets/images/TakumiSeatedBlue.png'),
+              const Text('Lo sentimos, ocurrió un error. Inténtalo más tarde.'),
+            ]);
           } else {
             // SI  SALE BIEN: SÍ SCAFOL
 
@@ -77,7 +74,7 @@ class _StatisticsViewsState extends State<StatisticsViews> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text(
-              'Activations: ${stove.activations}',
+              'Activations: ${stove.activations} times',
               style: const TextStyle(
                   fontSize: 16.0,
                   fontWeight: FontWeight.bold,
@@ -88,7 +85,7 @@ class _StatisticsViewsState extends State<StatisticsViews> {
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return Text(
-                    'Average temperature detection: ${snapshot.data} C°',
+                    'Average temperature detected: ${snapshot.data} C°',
                     style: const TextStyle(
                         fontSize: 16.0,
                         fontWeight: FontWeight.bold,
@@ -106,7 +103,7 @@ class _StatisticsViewsState extends State<StatisticsViews> {
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return Text(
-                    'Average cost: \$${snapshot.data} mxn',
+                    'Average usage expenses: \$${snapshot.data} mxn',
                     style: const TextStyle(
                         fontSize: 16.0,
                         fontWeight: FontWeight.bold,
@@ -139,7 +136,7 @@ class _StatisticsViewsState extends State<StatisticsViews> {
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     return Text(
-                      'Average smoke detection: ${snapshot.data}',
+                      'Average smoke detected: ${snapshot.data}%',
                       style: const TextStyle(
                           fontSize: 16.0,
                           fontWeight: FontWeight.bold,
@@ -167,7 +164,7 @@ class _StatisticsViewsState extends State<StatisticsViews> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text(
-              'Activations: ${extractor.activations}',
+              'Activations: ${extractor.activations} times',
               style: const TextStyle(
                   fontSize: 16.0,
                   fontWeight: FontWeight.bold,
