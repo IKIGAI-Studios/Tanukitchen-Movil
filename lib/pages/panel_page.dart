@@ -42,7 +42,6 @@ class _PanelPageState extends State<PanelPage> {
             const Text('Lo sentimos, ocurrió un error. Inténtalo más tarde.'),
           ]);
         } else {
-          // SI SALE BIEN: SÍ SCAFOL
           return Scaffold(
             appBar: AppBar(
               elevation: 0.0,
