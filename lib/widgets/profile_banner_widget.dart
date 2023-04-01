@@ -1,8 +1,7 @@
 import 'package:tanukitchen/db/mongodb.dart';
 import 'package:tanukitchen/models/user_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:tanukitchen/pages/home_page.dart';
+import 'package:tanukitchen/pages/modify_user_page.dart';
 
 class ProfileBanner extends StatelessWidget {
   ProfileBanner({this.screenWidth, this.user});
@@ -103,52 +102,66 @@ class ProfileBanner extends StatelessWidget {
                   height: 7.0,
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    /* TextButton(
-                      child: const Text(
-                        '',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Color.fromRGBO(89, 120, 221, 0.911),
-                            fontSize: 15.0),
-                      ),
-                      onPressed: () {},
-                    ),*/
-                    TextButton(
-                      child: const Text(
-                        'Delete',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Color.fromRGBO(219, 65, 65, 1),
-                            fontSize: 15.0),
-                      ),
+                    IconButton(
+                      icon: Image.asset('assets/images/edit.png'),
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (BuildContext context) {
+                          return ModifyUserPage(user: user);
+                        }));
+                      },
+                    ),
+                    const SizedBox(width: 30.0),
+                    IconButton(
+                      icon: Image.asset('assets/images/delete.png'),
                       onPressed: () {
                         showDialog(
+                          barrierColor: const Color.fromRGBO(39, 47, 63, .5),
                           context: context,
                           builder: (BuildContext context) {
                             return ClipRRect(
                               borderRadius: BorderRadius.circular(30.0),
                               child: AlertDialog(
-                                title: Text('Eliminar usuario'),
-                                content: Text(
-                                    '¿Estás seguro de que deseas eliminar este usuario?'),
+                                backgroundColor:
+                                    const Color.fromRGBO(39, 47, 63, .7),
+                                title: const Text(
+                                  'Delete this user?',
+                                  style: TextStyle(
+                                      color:
+                                          Color.fromRGBO(217, 217, 217, 1.0)),
+                                ),
+                                content: const Text(
+                                  'Everything about this user will be removed, including statistics',
+                                  style: TextStyle(
+                                      color:
+                                          Color.fromRGBO(217, 217, 217, 1.0)),
+                                ),
                                 actions: <Widget>[
                                   TextButton(
-                                    child: const Text('Cancelar'),
+                                    child: const Text(
+                                      'Uh, never mind',
+                                      style: TextStyle(
+                                          color:
+                                              Color.fromRGBO(6, 190, 182, 1.0),
+                                          fontWeight: FontWeight.bold),
+                                    ),
                                     onPressed: () {
                                       Navigator.pop(context);
                                     },
                                   ),
                                   TextButton(
-                                    child: const Text('Eliminar'),
                                     onPressed: () async {
                                       Navigator.pop(context);
                                       Navigator.pushNamed(context, 'home');
                                       await MongoDB.updateUserState(user!);
                                     },
-                                    style: TextButton.styleFrom(
-                                      primary: Colors.red,
+                                    child: const Text(
+                                      'Delete',
+                                      style: TextStyle(
+                                          color: Colors.red,
+                                          fontWeight: FontWeight.w100),
                                     ),
                                   ),
                                 ],
@@ -164,7 +177,7 @@ class ProfileBanner extends StatelessWidget {
             )
           ],
         ),
-        SizedBox(
+        const SizedBox(
           height: 25.0,
         )
       ],
