@@ -5,10 +5,10 @@ class User {
   final ObjectId id_kitchen;
   final String user;
   final String name;
-  final int? age;
-  final String? gender;
-  final String? last_recipe;
-  final int? recipes_completed;
+  final int age;
+  final String gender;
+  final String last_recipe;
+  final int recipes_completed;
   final bool active;
 
   const User(
@@ -16,10 +16,10 @@ class User {
       required this.id_kitchen,
       required this.user,
       required this.name,
-      this.age,
-      this.gender,
-      this.last_recipe,
-      this.recipes_completed,
+      required this.age,
+      required this.gender,
+      required this.last_recipe,
+      required this.recipes_completed,
       required this.active});
 
   Map<String, dynamic> toMap() {

@@ -10,8 +10,22 @@ class ModifyUserPage extends StatefulWidget {
 }
 
 class _ModifyUserPageState extends State<ModifyUserPage> {
+  final userController = TextEditingController();
+  final nameController = TextEditingController();
+  final ageController = TextEditingController();
+  final genderController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    userController.text = widget.user!.user;
+    nameController.text = widget.user!.name;
+    ageController.text = widget.user!.age.toString();
+    genderController.text = widget.user!.gender;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold();
   }
 }
