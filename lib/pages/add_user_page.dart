@@ -65,7 +65,7 @@ class _AddUserPageState extends State<AddUserPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   const Text(
-                    'Modify Profile',
+                    'Add User',
                     style: TextStyle(
                       color: Color.fromRGBO(217, 217, 217, 1.0),
                       fontWeight: FontWeight.bold,
