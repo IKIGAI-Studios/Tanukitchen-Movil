@@ -1,6 +1,7 @@
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:tanukitchen/models/user_model.dart';
 import 'package:tanukitchen/models/module_model.dart';
+import 'package:tanukitchen/models/kitchen_model.dart';
 import 'package:tanukitchen/utilities/consts.dart';
 
 class MongoDB {
@@ -30,12 +31,17 @@ class MongoDB {
     }
   }
 
-  static Future<List<Map<String, dynamic>>> getKitchens() async {
+  static Future<List<Kitchen>> getKitchens() async {
     try {
       final kitchens = await collectionKitchens.find().toList();
-      return kitchens;
+      List<Kitchen> kitchenList = [];
+      for (var kitchenMap in kitchens) {
+        Kitchen kitchen = Kitchen.fromMap(kitchenMap);
+        kitchenList.add(kitchen);
+      }
+      return kitchenList;
     } catch (e) {
-      return Future.value();
+      return Future.value([]);
     }
   }
 
@@ -58,7 +64,8 @@ class MongoDB {
   }
 
 // Métodos de inserción (no creo que ocupemos xd)
-  static insertUser(User user) async {
+// update siocupamo
+  static addUser(User user) async {
     await collectionUsers.insertAll([user.toMap()]);
   }
 

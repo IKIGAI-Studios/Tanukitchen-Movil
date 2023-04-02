@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:tanukitchen/models/user_model.dart';
+import 'package:tanukitchen/models/kitchen_model.dart';
 import 'package:tanukitchen/db/mongodb.dart';
+import 'package:bson/bson.dart';
 
-class ModifyUserPage extends StatefulWidget {
-  final User? user;
-  const ModifyUserPage({Key? key, this.user}) : super(key: key);
+class AddUserPage extends StatefulWidget {
+  const AddUserPage({super.key});
 
   @override
-  State<ModifyUserPage> createState() => _ModifyUserPageState();
+  State<AddUserPage> createState() => _AddUserPageState();
 }
 
-class _ModifyUserPageState extends State<ModifyUserPage> {
+class _AddUserPageState extends State<AddUserPage> {
+  Kitchen? _firstKitchen;
   final _formKey = GlobalKey<FormState>();
   final userController = TextEditingController();
   final nameController = TextEditingController();
@@ -20,11 +22,12 @@ class _ModifyUserPageState extends State<ModifyUserPage> {
   @override
   void initState() {
     super.initState();
+    _getFirstKitchen();
+  }
 
-    userController.text = widget.user!.user;
-    nameController.text = widget.user!.name;
-    ageController.text = widget.user!.age.toString();
-    genderController.text = widget.user!.gender;
+  Future<void> _getFirstKitchen() async {
+    List kitchens = await MongoDB.getKitchens();
+    _firstKitchen = kitchens[0];
   }
 
   @override
@@ -39,6 +42,7 @@ class _ModifyUserPageState extends State<ModifyUserPage> {
 
   @override
   Widget build(BuildContext context) {
+    MongoDB.getKitchens();
     final _screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
@@ -187,32 +191,20 @@ class _ModifyUserPageState extends State<ModifyUserPage> {
                         elevation: 10.0),
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        if (userController.text != widget.user!.user ||
-                            nameController.text != widget.user!.name ||
-                            ageController.text != widget.user!.age.toString() ||
-                            genderController.text != widget.user!.gender) {
-                          // Actualizar los datos del usuario en la base de datos
-                          User updatedUser = User(
-                            id: widget.user!.id,
-                            recipes_completed: widget.user!.recipes_completed,
-                            id_kitchen: widget.user!.id_kitchen,
-                            active: widget.user!.active,
-                            last_recipe: widget.user!.last_recipe,
-                            user: userController.text,
-                            name: nameController.text,
-                            gender: genderController.text,
-                            age: int.parse(ageController.text),
-                          );
-                          Navigator.pop(context);
-                          Navigator.pushNamed(context, 'home');
-                          await MongoDB.updateUser(updatedUser);
-                        } else {
-                          const milkyway = SnackBar(
-                            content: Text('There is nothing to change'),
-                            duration: Duration(seconds: 2),
-                          );
-                          ScaffoldMessenger.of(context).showSnackBar(milkyway);
-                        }
+                        // Actualizar los datos del usuario en la base de datos
+                        User newUser = User(
+                          id: ObjectId(),
+                          recipes_completed: 0,
+                          id_kitchen: _firstKitchen!.id,
+                          active: true,
+                          user: userController.text,
+                          name: nameController.text,
+                          gender: genderController.text,
+                          age: int.parse(ageController.text),
+                        );
+                        Navigator.pop(context);
+                        Navigator.pushNamed(context, 'home');
+                        await MongoDB.addUser(newUser);
                       }
                     },
                     child: const Text(

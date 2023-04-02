@@ -7,7 +7,7 @@ class User {
   final String name;
   final int age;
   final String gender;
-  final String last_recipe;
+  final String? last_recipe;
   final int recipes_completed;
   final bool active;
 
@@ -18,7 +18,7 @@ class User {
       required this.name,
       required this.age,
       required this.gender,
-      required this.last_recipe,
+      this.last_recipe,
       required this.recipes_completed,
       required this.active});
 

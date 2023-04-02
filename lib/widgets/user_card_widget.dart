@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tanukitchen/models/user_model.dart';
+import 'package:tanukitchen/models/kitchen_model.dart';
 import 'package:tanukitchen/pages/panel_page.dart';
 
 class UserCard extends StatelessWidget {
@@ -25,7 +26,7 @@ class UserCard extends StatelessWidget {
                   child: FractionallySizedBox(
                     widthFactor: 0.70,
                     child: Image(
-                      image: AssetImage('assets/images/TakumiWinkWhite.png'),
+                      image: AssetImage('assets/images/TakumiWinkDarkBlue.png'),
                     ),
                   ),
                 ),
@@ -36,8 +37,9 @@ class UserCard extends StatelessWidget {
                       Text(
                         user.user,
                         style: const TextStyle(
+                          color: Color.fromRGBO(6, 190, 182, 1.0),
                           fontWeight: FontWeight.bold,
-                          fontSize: 15.0,
+                          fontSize: 18.0,
                         ),
                         textAlign: TextAlign.start,
                       ),
@@ -45,7 +47,10 @@ class UserCard extends StatelessWidget {
                         padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
                         child: Text(
                           user.name,
-                          style: const TextStyle(fontSize: 10),
+                          style: const TextStyle(
+                            fontSize: 10,
+                            color: Color.fromRGBO(39, 47, 63, 1.0),
+                          ),
                           textAlign: TextAlign.left,
                         ),
                       )

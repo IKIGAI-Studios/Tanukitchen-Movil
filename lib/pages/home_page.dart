@@ -1,5 +1,6 @@
 import 'package:tanukitchen/widgets/user_card_widget.dart';
 import 'package:tanukitchen/models/user_model.dart';
+import 'package:tanukitchen/pages/add_user_page.dart';
 import 'package:tanukitchen/db/mongodb.dart';
 import 'package:flutter/material.dart';
 
@@ -27,13 +28,10 @@ class _HomePageState extends State<HomePage> {
 
             // TAKITO MAN
           } else if (snapshot.hasError) {
-            return Container(
-              child: Column(children: [
-                Image.asset('assets/images/TakumiSeatedBlue.png'),
-                const Text(
-                    'Lo sentimos, ocurrió un error. Inténtalo más tarde.'),
-              ]),
-            );
+            return Column(children: [
+              Image.asset('assets/images/TakumiSeatedBlue.png'),
+              const Text('Lo sentimos, ocurrió un error. Inténtalo más tarde.'),
+            ]);
           } else {
             // SI  SALE BIEN: SÍ SCAFOL
             return Scaffold(
@@ -54,10 +52,10 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Expanded(
                     child: ListView.builder(
-                      padding: const EdgeInsets.all(10.0),
+                      padding: const EdgeInsets.all(8.0),
                       itemBuilder: (context, index) {
                         return Padding(
-                          padding: const EdgeInsets.all(10.0),
+                          padding: const EdgeInsets.fromLTRB(10.0, 5, 10, 5),
                           child: UserCard(
                             user: User.fromMap(snapshot.data[index]),
                           ),
@@ -65,6 +63,18 @@ class _HomePageState extends State<HomePage> {
                       },
                       itemCount: snapshot.data.length,
                     ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (BuildContext context) {
+                        return AddUserPage();
+                      }));
+                    },
+                    icon: Image.asset('assets/images/add.png'),
+                    tooltip: 'Add an user',
+                    highlightColor: const Color.fromRGBO(6, 190, 182, .3),
+                    splashColor: const Color.fromRGBO(6, 190, 182, .3),
                   )
                 ],
               ),
