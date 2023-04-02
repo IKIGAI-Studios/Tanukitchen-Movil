@@ -57,7 +57,7 @@ class ProfileBanner extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    '${user!.gender}',
+                    user!.gender,
                     style: const TextStyle(
                         color: Color.fromRGBO(217, 217, 217, 1.0),
                         fontSize: 20.0,

@@ -113,14 +113,16 @@ class MongoDB {
 
 // Métodos de updateo
 // comentadito se ve más bonito (no creo que cambiemos datos desde la app. O sea, tampoco creo que insertemos ni borremos, pero esos son una sola linea so... ai se kedan xjaksdf)
-/*  static updateUser(User user) async {
+// Update: pos si los usamos xd
+  static updateUser(User user) async {
     var u = await collectionUsers.findOne({'_id': user.id});
-    u['type'] = user.type;
+    u['user'] = user.user;
     u['name'] = user.name;
-    u['active'] = user.active;
+    u['gender'] = user.gender;
+    u['age'] = user.age;
+
     await collectionUsers.save(u);
   }
-*/
 
 // Actualizar estado (encendido o apagado) de los módulos
   static updateModuleState(Module module) async {

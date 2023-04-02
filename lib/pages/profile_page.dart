@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:tanukitchen/widgets/profile_statistic_widget.dart';
 import 'package:tanukitchen/widgets/profile_banner_widget.dart';
 import 'package:tanukitchen/widgets/profile_tabbar_widget.dart';
@@ -14,6 +16,11 @@ class MyProfile extends StatefulWidget {
 }
 
 class _MyProfileState extends State<MyProfile> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
