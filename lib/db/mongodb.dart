@@ -99,14 +99,14 @@ class MongoDB {
     return roundedRes;
   }
 
-  // Obtener detección promedio de humo
+  // Obtener uso de electricidad
   static Future<double> electricUsage(Module module) async {
     var m = await collectionModules.findOne({'_id': module.id});
 
     var sec = m['time_usage']['seconds'];
     var horas = sec / 3600;
     var kwh = horas * .5;
-    var consumo = kwh * .97;
+    var consumo = kwh * .97 * .001;
 
     return consumo.roundToDouble();
   }

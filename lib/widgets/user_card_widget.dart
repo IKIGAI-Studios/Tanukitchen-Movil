@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tanukitchen/models/user_model.dart';
-import 'package:tanukitchen/models/kitchen_model.dart';
 import 'package:tanukitchen/pages/panel_page.dart';
 
 class UserCard extends StatelessWidget {

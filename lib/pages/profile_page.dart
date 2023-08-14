@@ -1,6 +1,3 @@
-import 'dart:async';
-
-import 'package:tanukitchen/widgets/profile_statistic_widget.dart';
 import 'package:tanukitchen/widgets/profile_banner_widget.dart';
 import 'package:tanukitchen/widgets/profile_tabbar_widget.dart';
 import 'package:tanukitchen/models/user_model.dart';

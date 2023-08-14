@@ -4,7 +4,7 @@ import 'package:tanukitchen/models/user_model.dart';
 import 'package:flutter/material.dart';
 
 class StatisticsViews extends StatefulWidget {
-  const StatisticsViews({required this.user, super.key});
+  const StatisticsViews({required this.user, key});
   final User user;
   @override
   State<StatisticsViews> createState() => _StatisticsViewsState();
@@ -13,7 +13,6 @@ class StatisticsViews extends StatefulWidget {
 class _StatisticsViewsState extends State<StatisticsViews> {
   @override
   Widget build(BuildContext context) {
-    final _screenSize = MediaQuery.of(context).size;
 
     return FutureBuilder(
         future: MongoDB.getModules(),
@@ -99,6 +98,7 @@ class _StatisticsViewsState extends State<StatisticsViews> {
               },
             ),
             FutureBuilder(
+              initialData: 0.0,
               future: MongoDB.electricUsage(stove),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
@@ -117,7 +117,7 @@ class _StatisticsViewsState extends State<StatisticsViews> {
                         backgroundColor: const Color.fromRGBO(39, 47, 63, 1.0),
                         valueColor: const AlwaysStoppedAnimation<Color>(
                             Color.fromRGBO(6, 190, 182, 1.0)),
-                        value: (snapshot.data! * .001),
+                        value: (snapshot.data as num).toDouble(),
                         minHeight: 10.0,
                       ),
                     ],
@@ -145,6 +145,7 @@ class _StatisticsViewsState extends State<StatisticsViews> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             FutureBuilder(
+              initialData: 0.0,
                 future: MongoDB.avgValue(detector),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
@@ -163,7 +164,7 @@ class _StatisticsViewsState extends State<StatisticsViews> {
                               const Color.fromRGBO(39, 47, 63, 1.0),
                           valueColor: const AlwaysStoppedAnimation<Color>(
                               Color.fromRGBO(6, 190, 182, 1.0)),
-                          value: (snapshot.data! * .01),
+                          value: ((snapshot.data! as num)*.01),
                           minHeight: 10.0,
                         ),
                       ],

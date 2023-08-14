@@ -1,10 +1,9 @@
 import 'package:tanukitchen/models/user_model.dart';
 import 'package:tanukitchen/widgets/profile_statistic_widget.dart';
-import 'package:tanukitchen/db/mongodb.dart';
 import 'package:flutter/material.dart';
 
 class ProfileTabBar extends StatefulWidget {
-  const ProfileTabBar({required this.user, super.key});
+  const ProfileTabBar({required this.user, key});
   final User user;
   @override
   State<ProfileTabBar> createState() => _ProfileTabBarState();

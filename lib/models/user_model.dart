@@ -2,48 +2,49 @@ import 'package:mongo_dart/mongo_dart.dart';
 
 class User {
   final ObjectId id;
-  final ObjectId id_kitchen;
   final String user;
   final String name;
   final int age;
   final String gender;
-  final String? last_recipe;
-  final int recipes_completed;
   final bool active;
+  final int recipes_completed;
+  final String? last_recipe;
+  //final List? count_recipes;
 
   const User(
       {required this.id,
-      required this.id_kitchen,
       required this.user,
       required this.name,
       required this.age,
       required this.gender,
-      this.last_recipe,
+      required this.active,
       required this.recipes_completed,
-      required this.active});
+      this.last_recipe,
+    //  this.count_recipes
+});
 
   Map<String, dynamic> toMap() {
     return {
       '_id': id,
-      'id_kitchen': id_kitchen,
       'user': user,
       'name': name,
       'age': age,
       'gender': gender,
-      'last_recipe': last_recipe,
+      'active': active,
       'recipes_completed': recipes_completed,
-      'active': active
+      'last_recipe': last_recipe
+     // 'count_recipes': count_recipes
     };
   }
 
   User.fromMap(Map<String, dynamic> map)
       : id = map['_id'],
-        id_kitchen = map['id_kitchen'],
         user = map['user'],
         name = map['name'],
         age = map['age'],
         gender = map['gender'],
-        last_recipe = map['last_recipe'],
+        active = map['active'],
         recipes_completed = map['recipes_completed'],
-        active = map['active'];
+        last_recipe = map['last_recipe'];
+      //  count_recipes = map['count_recipes'];
 }

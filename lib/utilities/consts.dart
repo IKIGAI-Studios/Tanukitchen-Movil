@@ -1,6 +1,6 @@
 // link a mondongo
 const CONN =
-    "mongodb+srv://root:root@tanucluster.98dt6wk.mongodb.net/myFirstDatabase";
+    "mongodb+srv://root:root@tanucluster.98dt6wk.mongodb.net/tanukitchenDB";
 
 // Agregar colecciones
 const COLLECTION_USERS = 'users';

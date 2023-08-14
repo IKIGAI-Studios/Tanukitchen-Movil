@@ -39,7 +39,7 @@ class _ModifyUserPageState extends State<ModifyUserPage> {
 
   @override
   Widget build(BuildContext context) {
-    final _screenSize = MediaQuery.of(context).size;
+    final screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
           elevation: 0.0,
@@ -75,7 +75,7 @@ class _ModifyUserPageState extends State<ModifyUserPage> {
                     borderRadius: BorderRadius.circular(100),
                     child: Image.asset(
                       'assets/images/pfp.png',
-                      height: _screenSize.width * .25,
+                      height: screenSize.width * .25,
                     ),
                   ),
                   const SizedBox(
@@ -195,7 +195,6 @@ class _ModifyUserPageState extends State<ModifyUserPage> {
                           User updatedUser = User(
                             id: widget.user!.id,
                             recipes_completed: widget.user!.recipes_completed,
-                            id_kitchen: widget.user!.id_kitchen,
                             active: widget.user!.active,
                             last_recipe: widget.user!.last_recipe,
                             user: userController.text,

@@ -5,7 +5,7 @@ import 'package:tanukitchen/db/mongodb.dart';
 import 'package:bson/bson.dart';
 
 class AddUserPage extends StatefulWidget {
-  const AddUserPage({super.key});
+  const AddUserPage({key});
 
   @override
   State<AddUserPage> createState() => _AddUserPageState();
@@ -195,7 +195,6 @@ class _AddUserPageState extends State<AddUserPage> {
                         User newUser = User(
                           id: ObjectId(),
                           recipes_completed: 0,
-                          id_kitchen: _firstKitchen!.id,
                           active: true,
                           user: userController.text,
                           name: nameController.text,
