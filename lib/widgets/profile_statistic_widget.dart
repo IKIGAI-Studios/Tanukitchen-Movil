@@ -15,7 +15,7 @@ class _StatisticsViewsState extends State<StatisticsViews> {
   Widget build(BuildContext context) {
 
     return FutureBuilder(
-        future: MongoDB.getModules(),
+     //   future: MongoDB.getModules(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           // CIRCULITO QUE DA VUELTAS XD
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -80,7 +80,7 @@ class _StatisticsViewsState extends State<StatisticsViews> {
                   color: Color.fromRGBO(39, 47, 63, 1.0)),
             ),
             FutureBuilder(
-              future: MongoDB.avgValue(stove),
+             // future: MongoDB.avgValue(stove),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return Text(
@@ -99,7 +99,7 @@ class _StatisticsViewsState extends State<StatisticsViews> {
             ),
             FutureBuilder(
               initialData: 0.0,
-              future: MongoDB.electricUsage(stove),
+            //  future: MongoDB.electricUsage(stove),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return Column(
@@ -146,7 +146,7 @@ class _StatisticsViewsState extends State<StatisticsViews> {
           children: [
             FutureBuilder(
               initialData: 0.0,
-                future: MongoDB.avgValue(detector),
+               // future: MongoDB.avgValue(detector),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     return Column(

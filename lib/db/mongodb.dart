@@ -14,6 +14,7 @@ class MongoDB {
   static connect() async {
     db = await Db.create(CONN);
     await db.open();
+    
     collectionUsers = db.collection(COLLECTION_USERS);
     collectionKitchens = db.collection(COLLECTION_KITCHENS);
     collectionRecipes = db.collection(COLLECTION_RECIPES);
@@ -54,6 +55,7 @@ class MongoDB {
     }
   }
 
+/*
   static Future<List<Map<String, dynamic>>> getModules() async {
     try {
       final modules = await collectionModules.find().toList();
@@ -62,6 +64,8 @@ class MongoDB {
       return Future.value();
     }
   }
+
+*/
 
 // Métodos de inserción (no creo que ocupemos xd)
 // update siocupamo
@@ -84,7 +88,7 @@ class MongoDB {
     return favoriteRecipe;
   }
 
-  // Obtener detección promedio de humo
+  /* Obtener detección promedio de humo
   static Future<double> avgValue(Module module) async {
     var m = await collectionModules.findOne({'_id': module.id});
 
@@ -98,8 +102,9 @@ class MongoDB {
     var roundedRes = res.roundToDouble();
     return roundedRes;
   }
+  */
 
-  // Obtener uso de electricidad
+  /* Obtener uso de electricidad
   static Future<double> electricUsage(Module module) async {
     var m = await collectionModules.findOne({'_id': module.id});
 
@@ -110,17 +115,18 @@ class MongoDB {
 
     return consumo.roundToDouble();
   }
+  */
 
+/*
   static Future<bool> isActive(Module module) async {
     var m = await collectionModules.findOne({'_id': module.id});
 
     var active = m['active'];
     return active;
   }
+  */
 
 // Métodos de updateo
-// comentadito se ve más bonito (no creo que cambiemos datos desde la app. O sea, tampoco creo que insertemos ni borremos, pero esos son una sola linea so... ai se kedan xjaksdf)
-// Update: pos si los usamos xd
   static updateUser(User user) async {
     var u = await collectionUsers.findOne({'_id': user.id});
     u['user'] = user.user;
@@ -131,7 +137,7 @@ class MongoDB {
     await collectionUsers.save(u);
   }
 
-// Actualizar estado (encendido o apagado) de los módulos
+/* Actualizar estado (encendido o apagado) de los módulos
   static updateModuleState(Module module) async {
     var m = await collectionModules.findOne({'_id': module.id});
     if (m['active'] == true) {
@@ -141,6 +147,7 @@ class MongoDB {
     }
     await collectionModules.save(m);
   }
+*/
 
   static updateUserState(User user) async {
     var usr = await collectionUsers.findOne({'_id': user.id});

@@ -76,8 +76,8 @@ class _ModuleCardState extends State<ModuleCard> {
                                     setState(() {
                                       widget.module.active = value;
                                     });
-                                    await MongoDB.updateModuleState(
-                                        widget.module);
+                                   // await MongoDB.updateModuleState(
+                                     //   widget.module);
                                   })
                           ])),
                     ],

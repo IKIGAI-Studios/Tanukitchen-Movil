@@ -1,11 +1,8 @@
-import 'dart:async';
-
-import 'package:tanukitchen/widgets/module_card_widget.dart';
+import 'package:tanukitchen/mqtt/mqtt_manager.dart';
 import 'package:tanukitchen/models/user_model.dart';
 import 'package:tanukitchen/pages/profile_page.dart';
-import 'package:tanukitchen/models/module_model.dart';
-import 'package:tanukitchen/db/mongodb.dart';
 import 'package:flutter/material.dart';
+import 'package:tanukitchen/mqtt/mqtt_routes.dart';
 
 class PanelPage extends StatefulWidget {
   final User user;
@@ -16,33 +13,48 @@ class PanelPage extends StatefulWidget {
 }
 
 class _PanelPageState extends State<PanelPage> {
-  Timer? _timer;
 
+  final MQTTManager _mqttManager = MQTTManager(); 
+   
+   
   @override
   void initState() {
     super.initState();
-    _timer = Timer.periodic(
-        const Duration(seconds: 1), (Timer t) => setState(() {}));
-  }
+    _setupMqtt();
+}
+
 
   @override
   void dispose() {
-    _timer?.cancel();
+    _mqttManager.client.disconnect();
     super.dispose();
   }
 
+
+  void _setupMqtt() async {
+
+    try {
+      await _mqttManager.connect();
+      _mqttManager.subscribeToTopic(client_stove);
+      _mqttManager.subscribeToTopic(client_weight);
+      _mqttManager.subscribeToTopic(client_smoke);
+      
+    _mqttManager.client.updates?.listen((_) {
+      setState(() {
+        _mqttManager.stoveValue;// Actualizar el valor del atributo
+      });
+      });
+    } catch (e) {
+      print('Error al configurar MQTT: $e');
+    }
+
+      }
+  
+
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: MongoDB.getModules(),
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        if (snapshot.hasError) {
-          return Column(children: [
-            Image.asset('assets/images/TakumiSeatedBlue.png'),
-            const Text('Lo sentimos, ocurrió un error. Inténtalo más tarde.'),
-          ]);
-        } else {
-          return Scaffold(
+    return 
+    Scaffold(
             appBar: AppBar(
               elevation: 0.0,
               backgroundColor: const Color.fromRGBO(39, 47, 63, 1.0),
@@ -91,23 +103,12 @@ class _PanelPageState extends State<PanelPage> {
                       color: Color.fromRGBO(217, 217, 217, 1.0),
                       fontWeight: FontWeight.bold,
                       fontSize: 25.0),
+                      
                 ),
-                Expanded(
-                  child: ListView.builder(
-                    itemBuilder: (context, index) {
-                      return ModuleCard(
-                        module: Module.fromMap(snapshot.data[index + 1]),
-                      );
-                    },
-                    itemCount:
-                        (snapshot.data == null) ? 0 : snapshot.data.length - 1,
-                  ),
-                ),
+                  Text('Stove Value: ${_mqttManager.stoveValue.toStringAsFixed(2)}'),
+                  
               ],
             ),
           );
         }
-      },
-    );
-  }
-}
+      }
