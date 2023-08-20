@@ -4,14 +4,18 @@ import 'package:flutter/material.dart';
 
 class ModuleCard extends StatefulWidget {
   //const ModuleCard({super.key});
-  ModuleCard({required this.module});
+  ModuleCard({required this.module, required this.value, this.status});
   final Module module;
+  final double value;
+  bool? status;
 
   @override
   State<ModuleCard> createState() => _ModuleCardState();
 }
 
 class _ModuleCardState extends State<ModuleCard> {
+  late bool active = false;
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -58,26 +62,25 @@ class _ModuleCardState extends State<ModuleCard> {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 10),
-                        child: _setValue(
-                            widget.module.name, widget.module.firstValue),
+                        child: _setValue(widget.module.name, widget.value),
                       ),
                       Padding(
                           padding: const EdgeInsets.only(top: 10),
                           child: Row(children: [
-                            _setStatus(widget.module.active),
+                            _setStatus(widget.status),
                             if (widget.module.name != "smoke_detector")
                               Switch(
                                   activeColor:
                                       const Color.fromRGBO(6, 190, 182, 1.0),
                                   hoverColor:
                                       const Color.fromRGBO(6, 190, 182, .5),
-                                  value: widget.module.active,
-                                  onChanged: (bool value) async {
+                                  value: widget.status ?? false,
+                                  onChanged: (bool value) {
                                     setState(() {
-                                      widget.module.active = value;
+                                      widget.status = value;
                                     });
-                                   // await MongoDB.updateModuleState(
-                                     //   widget.module);
+                                    // await MongoDB.updateModuleState(
+                                    //   widget.module);
                                   })
                           ])),
                     ],
@@ -91,17 +94,19 @@ class _ModuleCardState extends State<ModuleCard> {
     );
   }
 
+
   Widget _setStatus(bool? status) {
     return status == null
         ? const Text('')
-        : status == true
+        : status == true 
             ? const Text(
                 'Turned On',
                 style: TextStyle(color: Color.fromRGBO(217, 217, 217, 1.0)),
               )
-            : const Text('Turned Off',
+            : const Text('Turned Off',  
                 style: TextStyle(color: Color.fromRGBO(217, 217, 217, 1.0)));
   }
+
 
   Widget _setImage(String? moduleName) {
     return Image(
@@ -109,7 +114,7 @@ class _ModuleCardState extends State<ModuleCard> {
     );
   }
 
-  Widget _setValue(String? moduleName, double? lastValue) {
+  Widget _setValue(String? moduleName, double? value) {
     final moduleValue = {
       'stove': (value) => Text(
             'Temperature: $value',
@@ -130,6 +135,6 @@ class _ModuleCardState extends State<ModuleCard> {
 
     final style = moduleValue[moduleName];
 
-    return style != null ? style(lastValue) : const Text('');
+    return style != null ? style(value) : const Text('');
   }
 }

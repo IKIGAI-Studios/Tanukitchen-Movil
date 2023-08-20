@@ -32,6 +32,17 @@ class MongoDB {
     }
   }
 
+  
+  static Future<List<Map<String, dynamic>>> getModules() async {
+    try {
+      final modules = await collectionModules.find().toList();
+      return modules;
+    } catch (e) {
+      return Future.value();
+    }
+  }
+
+
   static Future<List<Kitchen>> getKitchens() async {
     try {
       final kitchens = await collectionKitchens.find().toList();
