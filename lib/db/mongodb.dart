@@ -1,6 +1,5 @@
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:tanukitchen/models/user_model.dart';
-import 'package:tanukitchen/models/module_model.dart';
 import 'package:tanukitchen/models/kitchen_model.dart';
 import 'package:tanukitchen/utilities/consts.dart';
 

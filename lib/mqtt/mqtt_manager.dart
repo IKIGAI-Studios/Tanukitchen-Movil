@@ -20,8 +20,10 @@ class MQTTManager {
   double stoveValue = 0.0;
   double weightValue = 0.0;
   double extractorValue = 0.0;
+  double smokeValue = 0.0;
   String stoveStatus = '';
   String weightStatus = '';
+  String extractorStatus = '';
 
   MqttServerClient client;
 
@@ -30,7 +32,7 @@ class MQTTManager {
 
   MQTTManager()
       : client = MqttServerClient.withPort(
-            MY_CLUSTER_URL, MIKE_USERNAME, MQTT_PORT) {
+            MIKE_CLUSTER_URL, MIKE_USERNAME, MQTT_PORT) {
     client.secure = true;
     client.securityContext = SecurityContext.defaultContext;
     client.keepAlivePeriod = 60;
@@ -42,7 +44,7 @@ class MQTTManager {
   Future<void> connect() async {
     try {
       print('client connecting....');
-      await client.connect(MIKE_USERNAME, MY_PASSWORD);
+      await client.connect(MIKE_USERNAME, MIKE_PASSWORD);
     } on Exception catch (e) {
       print('client exception - $e');
       client.disconnect();
@@ -72,23 +74,31 @@ class MQTTManager {
         print('Valor de la temperatura: ');
         print(message);
         stoveValue = double.parse(message);
-      } else if (c[0].topic == client_weightValue) {
+      }
+      if (c[0].topic == client_weightValue) {
         print('Valor de la scale: ');
         print(message);
         weightValue = double.parse(message);
-      } else if (c[0].topic == client_extractorValue) {
-        print('Valor del extractor: ');
+      }
+      if (c[0].topic == client_smokeValue) {
+        print('Valor del detector de humo: ');
         print(message);
-        extractorValue = double.parse(message);
+        smokeValue = double.parse(message);
       }
       if (c[0].topic == client_stoveStatus) {
-        print('Estado de la cocina: ');
+        print('Estado de la estufa: ');
         print(message);
-        stoveStatus = message; // Actualizar el estado del módulo
-      } else if (c[0].topic == client_weightStatus) {
+        stoveStatus = message;
+      }
+      if (c[0].topic == client_weightStatus) {
         print('Estado de la báscula: ');
         print(message);
-        weightStatus = message; // Actualizar el estado del módulo
+        weightStatus = message;
+      }
+      if (c[0].topic == client_extractorStatus) {
+        print('Estado del extractor: ');
+        print(message);
+        extractorStatus = message;
       }
     });
   }

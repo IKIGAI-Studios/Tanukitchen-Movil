@@ -1,20 +1,25 @@
-import 'package:tanukitchen/db/mongodb.dart';
-import 'package:tanukitchen/models/module_model.dart';
 import 'package:flutter/material.dart';
+import 'package:tanukitchen/mqtt/mqtt_manager.dart';
+import 'package:tanukitchen/mqtt/mqtt_routes.dart';
 
 class ModuleCard extends StatefulWidget {
   //const ModuleCard({super.key});
-  ModuleCard({required this.module, required this.value, this.status});
-  final Module module;
+  ModuleCard(
+      {required this.module_name,
+      required this.value,
+      this.status,
+      required this.mqttManager});  
+  final String module_name;
   final double value;
   bool? status;
+  final MQTTManager mqttManager;
+
 
   @override
   State<ModuleCard> createState() => _ModuleCardState();
 }
 
 class _ModuleCardState extends State<ModuleCard> {
-  late bool active = false;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +37,7 @@ class _ModuleCardState extends State<ModuleCard> {
                 Expanded(
                   child: FractionallySizedBox(
                     widthFactor: 0.50,
-                    child: _setImage(widget.module.name),
+                    child: _setImage(widget.module_name),
                   ),
                 ),
                 Expanded(
@@ -40,20 +45,7 @@ class _ModuleCardState extends State<ModuleCard> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        (() {
-                          switch (widget.module.name) {
-                            case "smoke_detector":
-                              return "Smoke Detector";
-                            case "scale":
-                              return "Scale";
-                            case "stove":
-                              return "Stove";
-                            case "extractor":
-                              return "Extractor";
-                            default:
-                              return widget.module.name;
-                          }
-                        })(),
+                        widget.module_name,
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20.0,
@@ -62,13 +54,13 @@ class _ModuleCardState extends State<ModuleCard> {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 10),
-                        child: _setValue(widget.module.name, widget.value),
+                        child: _setValue(widget.module_name, widget.value),
                       ),
                       Padding(
                           padding: const EdgeInsets.only(top: 10),
                           child: Row(children: [
                             _setStatus(widget.status),
-                            if (widget.module.name != "smoke_detector")
+                            if (widget.module_name != "Smoke Detector")
                               Switch(
                                   activeColor:
                                       const Color.fromRGBO(6, 190, 182, 1.0),
@@ -77,7 +69,10 @@ class _ModuleCardState extends State<ModuleCard> {
                                   value: widget.status ?? false,
                                   onChanged: (bool value) {
                                     setState(() {
-                                      widget.status = value;
+                                      
+                                      widget.status = value; 
+                                      _updateStatus(widget.module_name,
+                                          widget.status, widget.mqttManager);
                                     });
                                     // await MongoDB.updateModuleState(
                                     //   widget.module);
@@ -94,19 +89,51 @@ class _ModuleCardState extends State<ModuleCard> {
     );
   }
 
+  bool? _updateStatus(moduleName, moduleStatus, mqttManager) {
+    if (moduleName == 'Stove' && moduleStatus == true) {
+      mqttManager.publishMessage('ON', server_stoveStatus);
+      print("Estufa Encendida");
+      return false;
+    }
+    if (moduleName == 'Stove' && moduleStatus == false) {
+      mqttManager.publishMessage('OFF', server_stoveStatus);
+      print("Estufa Apagada");
+      return true;
+    }
+        if (moduleName == 'Extractor' && moduleStatus == true) {
+      mqttManager.publishMessage('ON', server_extractorStatus);
+      print("Extractor Encendido");
+      return false;
+    }
+    if (moduleName == 'Extractor' && moduleStatus == false) {
+      mqttManager.publishMessage('OFF', server_extractorStatus);
+      print("Extractor Apagado");
+      return true;
+    }
+        if (moduleName == 'Scale' && moduleStatus == true) {
+      mqttManager.publishMessage('ON', server_weightStatus);
+      print("Báscula Encendida");
+      return false;
+    }
+    if (moduleName == 'Scale' && moduleStatus == false) {
+      mqttManager.publishMessage('OFF', server_weightStatus);
+      print("Báscula Apagada");
+      return true;
+    }
+  
+  }
 
   Widget _setStatus(bool? status) {
     return status == null
         ? const Text('')
-        : status == true 
+        : status == true
             ? const Text(
                 'Turned On',
                 style: TextStyle(color: Color.fromRGBO(217, 217, 217, 1.0)),
               )
-            : const Text('Turned Off',  
+            : const Text('Turned Off',
                 style: TextStyle(color: Color.fromRGBO(217, 217, 217, 1.0)));
   }
-
 
   Widget _setImage(String? moduleName) {
     return Image(
@@ -116,17 +143,17 @@ class _ModuleCardState extends State<ModuleCard> {
 
   Widget _setValue(String? moduleName, double? value) {
     final moduleValue = {
-      'stove': (value) => Text(
-            'Temperature: $value',
+      'Stove': (value) => Text(
+            'Temperature: $value °C',
             style: const TextStyle(
                 fontSize: 15.0, color: Color.fromRGBO(217, 217, 217, 1.0)),
           ),
-      'scale': (value) => Text(
-            'Weight: $value',
+      'Scale': (value) => Text(
+            'Weight: $value gr.',
             style: const TextStyle(
                 fontSize: 15.0, color: Color.fromRGBO(217, 217, 217, 1.0)),
           ),
-      'smoke_detector': (value) => Text(
+      'Smoke Detector': (value) => Text(
             'Smoke detected: $value',
             style: const TextStyle(
                 fontSize: 15.0, color: Color.fromRGBO(217, 217, 217, 1.0)),
